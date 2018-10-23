@@ -1,0 +1,160 @@
+% simulating the examples in UKF paper
+clc
+clear
+%% Example 1 - (r,th)- (x,y) transformation
+% % 
+% % first by montecarlo method
+% sigr=2;
+% sigth=15;
+% mur=1;
+% muth=90;
+% F=@(x)([x(:,1).*cosd(x(:,2)),x(:,1).*sind(x(:,2))]);
+% X=mvnrnd([mur;muth],[sigr,0;0,sigth],3*10^6);
+% XY=F(X);
+% 
+% [xmc,ymc]=point_ellipse(mu(1),mu(2),sig(1),sig(2));
+% 
+% 
+% % UT 2n+1 points
+% [x,w]=UT_sigmapoints([mur;muth],[sigr,0;0,sigth],2);
+% XY=F(x);
+% mu_ut(1)=0;
+% mu_ut(2)=0;
+% for i=1:1:length(w)
+%     mu_ut(1)=mu_ut(1)+w(i)*XY(i,1);
+%     mu_ut(2)=mu_ut(2)+w(i)*XY(i,2);
+% end
+% P_ut=0;
+% for i=1:1:length(w)
+%     P_ut=P_ut+w(i)*(XY(i,:)'-mu_ut')*(XY(i,:)-mu_ut);
+% end
+% 
+% [xut,yut]=point_ellipse(mu_ut(1),mu_ut(2),sqrt(P_ut(1,1)),sqrt(P_ut(2,2)));
+% 
+% % CKF points
+% [x,w]=cubature_KF_points([mur;muth],[sigr,0;0,sigth]);
+% XY=F(x);
+% mu_ckf(1)=0;
+% mu_ckf(2)=0;
+% for i=1:1:length(w)
+%     mu_ckf(1)=mu_ckf(1)+w(i)*XY(i,1);
+%     mu_ckf(2)=mu_ckf(2)+w(i)*XY(i,2);
+% end
+% P_ckf=0;
+% for i=1:1:length(w)
+%     P_ckf=P_ckf+w(i)*(XY(i,:)'-mu_ckf')*(XY(i,:)-mu_ckf);
+% end
+%
+% [xckf,yckf]=point_ellipse(mu_ckf(1),mu_ckf(2),sqrt(P_ckf(1,1)),sqrt(P_ckf(2,2)));
+% 
+% % NM 4thmom points
+% [x,w]=conjugate_dir_gausspts([mur;muth],[sigr,0;0,sigth]);
+% XY=F(x);
+% mu_nm4(1)=0;
+% mu_nm4(2)=0;
+% for i=1:1:length(w)
+%     mu_nm4(1)=mu_nm4(1)+w(i)*XY(i,1);
+%     mu_nm4(2)=mu_nm4(2)+w(i)*XY(i,2);
+% end
+% P_nm4=0;
+% for i=1:1:length(w)
+%     P_nm4=P_nm4+w(i)*(XY(i,:)'-mu_nm4')*(XY(i,:)-mu_nm4);
+% end
+% 
+% [xnm4,ynm4]=point_ellipse(mu_nm4(1),mu_nm4(2),sqrt(P_nm4(1,1)),sqrt(P_nm4(2,2)));
+% 
+% 
+% % NM 6thmom points
+% [x,w]=conjugate_dir_gausspts_till_6moment_scheme2([mur;muth],[sigr,0;0,sigth]);
+% XY=F(x);
+% mu_nm6(1)=0;
+% mu_nm6(2)=0;
+% for i=1:1:length(w)
+%     mu_nm6(1)=mu_nm6(1)+w(i)*XY(i,1);
+%     mu_nm6(2)=mu_nm6(2)+w(i)*XY(i,2);
+% end
+% P_nm6=0;
+% for i=1:1:length(w)
+%     P_nm6=P_nm6+w(i)*(XY(i,:)'-mu_nm6')*(XY(i,:)-mu_nm6);
+% end
+% 
+% 
+% [xnm6,ynm6]=point_ellipse(mu_nm6(1),mu_nm6(2),sqrt(P_nm6(1,1)),sqrt(P_nm6(2,2)));
+% 
+% 
+% plot(xmc,ymc,'r.',xut,yut,'k.-',xckf,yckf,'b+',xnm4,ynm4,'go',xnm6,ynm6,'m*')
+% legend('MC','UT','CKF','NM4','NM6')
+
+%% Example 2 - Tracking of re-entry system
+
+t0=0;
+tF=200;
+dt=0.05;
+
+x_true = [6500.4 349.14 -1.8093 -6.7967 0.6932]';
+P_true = blkdiag(1e-6,1e-6,1e-6,1e-6,1e-20);
+% process noise cov
+Q=blkdiag(0,0,2.4064e-5,2.4064e-5,10^(-6));
+
+% generating the truth and hence measurements from the monte carlo integrations 
+[t,xt]=ode45(@reEntryDynamics,t0:dt:tF,x_true);
+% generating measurement
+R=blkdiag(1e-3,0.017);
+for i=1:1:length(t)
+    ym(i,:) = (rangeAndBearing(xt(i,:))+sqrtm(R)*randn(2,1))';
+end
+
+% filtering 
+x_u = [6500.4 349.14 -1.8093 -6.7967 0]';
+P_u = blkdiag(1e-6,1e-6,1e-6,1e-6,1);
+
+%Measurement Availability
+% give frq f : i.e every f*dt sec there is meas update 
+f=2;
+
+%initiate filter
+mu_ut=x_u;
+P_ut=P_u;
+
+x_ut=mu_ut';
+n=length(mu_ut);
+Covx_ut=reshape(P_ut,1,n*n);
+for tt=t0:dt:tF-dt
+    %state forecast step
+%     [~,y]=ode45(@reEntryDynamics,tt:dt:tt+f*dt,mu_ut);
+    
+    [x,w]=UT_sigmapoints(mu_ut,P_ut,2);
+    [mu_ut_sf,P_ut_sf]=prop_mean_cov_points_cont(x,w,@reEntryDynamics,tt,dt,tt+dt);
+    P_ut_sf=P_ut_sf+Q;
+    
+    if rem(tt+dt,f*dt)==0
+    
+        %obs forecast
+    [x,w]=UT_sigmapoints(mu_ut_sf,P_ut_sf,2);
+    [mu_ut_of,P_ut_of]=prop_mean_cov_points_discr(x,w,@rangeAndBearing);
+    P_ut_of=P_ut_of+R;
+    %cross cov
+    [x,w]=UT_sigmapoints(mu_ut_sf,P_ut_sf,2);
+    Pcc=0;
+    for i=1:1:length(w)
+        Pcc=Pcc+w(i)*(x(i,:)'-mu_ut_sf)*(rangeAndBearing(x(i,:)')-mu_ut_of)';
+    end
+    %kalman gain
+    K=Pcc*inv(P_ut_of);
+    %update
+    tt
+    pp=find(abs(t-(tt+dt))<=1e-10);
+    mu_ut=mu_ut_sf+K*(ym(pp,:)'-mu_ut_of);
+    P_ut=P_ut_sf-K*P_ut_of*K';
+    
+    else
+        mu_ut=mu_ut_sf;
+        P_ut=P_ut_sf;
+    end
+    x_ut=vertcat(x_ut,mu_ut');
+    Covx_ut=vertcat(Covx_ut,reshape(P_ut,1,n*n));
+end
+figure(1)
+plot(t(1:1:end),(xt(:,1)-x_ut(:,1)).^2)
+figure(2)
+plot(t(1:1:end),Covx_ut(:,end))

@@ -1,0 +1,8 @@
+function plot_dotlines_pts(x,w)
+if size(x,2)==1
+  for i=1:1:size(x,1)
+      plot([x(i),x(i)],[0,w(i)],) 
+end
+
+
+

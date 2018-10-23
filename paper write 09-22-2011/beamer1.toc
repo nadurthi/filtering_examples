@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.10pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Motivation}{2}{0}{1}
+\beamer@sectionintoc {2}{Two Body Problem}{13}{0}{2}
+\beamer@subsectionintoc {2}{1}{Equations of motion}{13}{0}{2}

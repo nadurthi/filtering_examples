@@ -1,0 +1,78 @@
+% %% using dblquad to integrate a fn
+% Q1 = dblquad(@(x,y)sqrt(1-(x.^2+y.^2)).*(x.^2+y.^2<=1),-1,1,-1,1)
+% q = quad2d(@(x,y)sqrt(1-(x.^2+y.^2)).*(x.^2+y.^2<=1),-1,1,-1,1)
+% %% now using guass legendre integration
+% % choose the number of pts
+% n=5;
+% x1=0;
+% x2=(1/3)*sqrt(5-2*sqrt(10/7));
+% x3=-(1/3)*sqrt(5-2*sqrt(10/7));
+% x4=(1/3)*sqrt(5+2*sqrt(10/7));
+% x5=-(1/3)*sqrt(5+2*sqrt(10/7));
+% 
+% w2=(322+13*sqrt(70))/900;
+% w3=(322+13*sqrt(70))/900;
+% w4=(322-13*sqrt(70))/900;
+% w5=(322-13*sqrt(70))/900;
+% w1=128/225;
+% [x,y]=meshgrid([x5,x3,x1,x2,x4]);
+% f=@(x,y)sqrt(1-(x.^2+y.^2);
+% 
+% %% finding the sigma points for a uniform distribution
+% 
+% 
+% 
+% 
+% 
+% 
+
+
+%% grid based solving of integral
+clc 
+clear
+
+% N=-nn^2+19*nn-53
+N=11;
+nn=(N-1)/4;
+x=linspace(-nn,nn,N);
+A=[];
+for i=1:1:N
+    A=[A;x.^(i-1)];
+end
+for i=1:1:N-1
+if rem(i,2)==0
+    m(i)=1;
+    for p=i-1:-2:1
+    m(i)=m(i)*p;
+    end
+%    m(i)=m(i)*(1/10^(i));
+else
+    m(i)=0;
+end
+
+end
+m=[1;m'];
+cond(A)
+w=inv(A)*m;
+sum(w)
+[mm,j]=min(w)
+plot(x,w)
+summag=0;
+for i=1:1:N
+    summag=summag+w(i)*exp(-x(i)^2);
+end
+summag
+
+%% now using GH 
+N=15;
+xx=1:1:4;
+[xgh,wgh]=GenerateQuadPoints([4,0;0,4],[0;0],3);
+plot(xx,0,'ro')
+hold on
+plot(xgh,0,'b+')
+axis([0,5,-1,1])
+sumgh=0;
+for i=1:1:N
+    sumgh=sumgh+wgh(i)*exp(-xgh(i)^2);
+end
+sumgh

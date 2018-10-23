@@ -1,0 +1,22 @@
+clc
+clear
+global n
+n=6;
+options=optimset('Display','off','MaxFunEvals',10000,'MaxIter',10000);
+
+[x,f]=fsolve(@moment_6th_ND_eqns,[2,3,4]',options)
+
+if n<=7
+w=[(7-(n-1))/r1^6;1/(2^n*r2^6);1/(2*r3^6)];
+w1=w(1)
+w2=w(2)
+w3=w(3)
+w0=1-2*n*w1-2^n*w2-2*n*(n-1)*w3
+end
+if n>=8 & n<=13
+    w=[(14-n)/(2*r1^6);(n-5)/(2^n*(n-3)*r2^6);1/(4*(n-3)*r3^6)];
+    w1=w(1)
+w2=w(2)
+w3=w(3)
+w0=1-2*n*w1-2^n*w2-(4/3)*n*(n-1)*(n-2)*w3
+end

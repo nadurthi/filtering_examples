@@ -1,0 +1,569 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Presentation of Beamer UNL Theme
+%   Beamer Presentation by Chris Bourke
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass{article}
+%\usepackage{beamerarticle}
+\documentclass{beamer}
+%\documentclass[brown]{beamer}
+
+\mode<presentation> {
+
+\usetheme{waqar}%{waqar}
+%\setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
+%\usecolortheme{rose}
+\usecolortheme{wcolor}
+\definecolor{ublue}{rgb}{000,051,153}
+\definecolor{ugray}{rgb}{102,102,102}
+%\usecolortheme[named=wgreen]{structure}
+\setbeamercovered{transparent}
+\usefonttheme{serif}
+\usefonttheme{structuresmallcapsserif}
+%\usefonttheme{structuresmallcaps}
+\usefonttheme{professionalfonts}
+} \definecolor{maroon}{RGB}{149,0,0} \setbeamercolor{alerted
+text}{fg=maroon}
+
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage[slantedGreek]{mathptmx}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{pgf,subfigure,wrapfig,hyperref}
+
+\graphicspath{{/Users/psingla/Documents/PuneetDocs/Publications/Conferences/ACC/ACC10/stochForcingLin/Figures/}}
+\newcommand{\incfig}{\includegraphics}
+
+\title[Adaptive GSF]{Certain Thoughts on Uncertainty Analysis for Dynamical Systems}
+\author[\color{white}{P.~Singla (\href{mailto:psingla@buffalo.edu}{psingla(@)buffalo.edu})}]{\normalsize Puneet Singla \\\textit{Assistant Professor\\Department of Mechanical \& Aerospace Engineering\\ University at Buffalo, Buffalo, NY-14260}}
+\institute[\color{white}{University at Buffalo}]{\normalsize\alert{Probabilistic Analysis of Volcanic Hazards:
+Current Methodologies and Vision for Future Efforts}\\\vspace{0.06in}{\small\color{maroon}{\textit{A Workshop at the University at Buffalo\\May~16--May~19, 2011}}}}
+\date[\href{http://lairs.eng.buffalo.edu}{lairs.eng.buffalo.edu}]{\footnotesize\color{blue}{Collaborators: M.~Bursik, M.~Jones, A.~Patra, E.~B.~Pitman, P.~Scott, T.~Singh\\H.~Bjornsson, S.~Carn, K.~Dean, M.~Pavolonis, M.~Ripepe, P.~Webley}\\\vspace{.2in}\insertlogo{\incfig[width=1.5in]{ub.pdf}} }
+\newtheorem{distheorem}{Theorem}
+
+\include{symbols}
+\begin{document}
+
+%%%%%%
+\begin{frame}[plain]
+\begin{center}
+  \titlepage
+  \end{center}
+\end{frame}
+%\begin{frame}\frametitle{Contents}
+%\tableofcontents
+%\end{frame}
+\section{introduction}
+\begin{frame}\frametitle{\color{black}{Introduction}}\framesubtitle{\color{white}{Problem Statement}}
+\begin{itemize}%[<+->]
+\item<1-> Stochastic System: $\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et,\ \x(t_0) =\me_0$.
+\begin{itemize}
+\item \alert{Source of Uncertainties:} system parameters, initial conditions, input to the system, modeling error.
+\end{itemize}
+\item Robust modeling of the propagation of these uncertainties is important to \alert{accurately quantify the uncertainty} in the solution at any future time.
+\end{itemize}
+\begin{figure}\vspace{-0.1in}
+\begin{center}
+\includegraphics[width=2.3in]{/Users/psingla/Documents/PuneetDocs/Publications/Conferences/ACC/ACC10/stochForcingLin/Figures/pdf_tran.pdf}\vspace{-0.15in}
+\caption{State and pdf transition.}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{\color{black}{Introduction}}\framesubtitle{\color{white}{Problem Statement}}
+%\transblindshorizontal
+\begin{block}<1->{Linear systems with known parameter: $\dot{\x} = \A(\Th_0)\x + \B(\Th_0)\u+ \G(\Th_0)\et$}
+\begin{itemize}
+\item State pdf is Gaussian assuming initial condition and input uncertainty to be Gaussian in nature.
+\item \alert{Drawback:} appending unknown parameters as additional state variables lead to non-linear system with non-gaussian pdfs.
+\end{itemize}
+\end{block}
+
+\begin{block}<2->{Linear systems with unknown parameter: $\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et$}
+\begin{itemize}
+\item Generalized Polynomial Chaos (gPC): propagate time-invariant parametric uncertainty through an otherwise deterministic system of equations.
+
+\item \alert{Drawback:} Using gPC series expansion for the time-varying stochastic forcing terms is computationally expensive.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}\frametitle{\color{black}{Introduction}}\framesubtitle{\color{white}{Motivation}}
+
+\begin{itemize}
+\item Main challenge: characterizing the uncertainty in the system states due to {\color{blue}{\textit{both parametric and temporal stochastic uncertainties} simultaneously}}
+\begin{itemize}
+\item \alert{Approximate Solution to exact problem:} Multiple-model estimation method, Monte Carlo (MC) methods.
+\item \alert{Exact solution to approximate problem:} Gaussian closure, Equivalent Linearization, and Stochastic Averaging.
+\end{itemize}
+\item<2-> {\color{blue}{Main Objective:}} \textit{develop analytical means to accurately characterize the state pdf of a linear system subject to initial condition uncertainty, white noise excitation and possibly non-Gaussian parametric uncertainty.}
+\begin{itemize}
+\item<2-> {\color{blue}{Uncertainty Marriage:}} \alert{handshake of Kalman filter with gPC.}
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\section{Proposed Approach}
+\begin{frame}\frametitle{\color{black}{Proposed Approach}}\framesubtitle{\color{white}{$\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et$}}
+
+\begin{block}{Method 1: Conditioning first on uncertain parameters}
+\begin{itemize}
+\item The conditional state pdf $p(\x|\Th)$ is a normal distribution with mean $\me$ and covariance $\cov$, i.e. $p(\x|\Th)=\mathcal{N}(\x;\me,\cov)$.
+\begin{align}\label{meanG}
+\dot{\me} &=\A(\Th)\me + \B\u\\
+\dot{\cov} &= \A(\Th)\cov+\cov\A^T(\Th)+\G(\Th) \Q \G^T(\Th) \label{covG}
+\end{align}
+\item These conditional moment propagation equations are \alert{exact and depend only} on the initial moments and the model parameters.
+\item The complete distribution of the original state vector $\x$ is:\vspace{-0.15in}
+\begin{align}\footnotesize
+p(t,\x) &= \int\limits_{\om}{p(t,\x|\Th(\xib))p(\xib)d\xib}\\
+&=\int\limits_{\om}\mathcal{N}(t,\x;\me(t,\Th),\cov(t,\Th))p(\xib)d\xib \label{meth2pi}
+\end{align}
+\end{itemize}
+\end{block}
+%To avoid Monte Carlo sampling, we make use of gPC to obtain the distribution for $\me$ and covariance $\cov$ in terms of the random variable $\xib$.
+\end{frame}
+
+
+\begin{frame}\frametitle{\color{black}{Proposed Approach}}\framesubtitle{\color{white}{$\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et$}}
+\begin{block}<1>{Polynomial Chaos}
+\begin{itemize}
+\item Polynomial chaos is a term originated by \textit{Norbert Wiener in} $1938$, to describe the members of the {\color{blue}{span of Hermite polynomial functionals of a Gaussian process.}}
+\item According to the Cameron-Martin Theorem, the Fourier-Hermite polynomial chaos expansion converges, in the $L^2$ sense, to \textit{any arbitrary process with finite variance} (which applies to most physical processes).
+\item This has been generalized by Xiu et al. (2002) to \alert{efficiently use the orthogonal polynomials} from the Askey-scheme to model various probability distributions.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}\frametitle{\color{black}{Proposed Approach}}\framesubtitle{\color{white}{$\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et$}}
+
+\begin{block}{Generalized Polynomial Chaos: Basic Goal}
+\begin{itemize}
+\item Approximate the stochastic system states in terms of \alert{a finite-dimensional series expansion} in the infinite-dimensional stochastic space.
+\item The unknown coefficients are determined by {\color{blue}{minimizing an appropriate norm of the residual.}}
+\item The basis can be chosen for a given pdf, to represent the random variable with the fewest number of terms.
+\begin{itemize}
+\item For example, Hermite polynomials for Gaussian r.v. and Legendre polynomials for uniform r.v.
+\end{itemize}
+\item \alert{The completeness of the space} allows for the accurate representation of any random variable, with a given probability density function (pdf), by a \textit{suitable projection on the space spanned by a carefully selected basis.}
+\end{itemize}
+\end{block}
+ \end{frame}
+
+
+\begin{frame}\frametitle{\color{black}{Proposed Approach}}\framesubtitle{\color{white}{$\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et$}}
+
+\begin{block}{Method 1: $p(t,\x)=\int\limits_{\om}\mathcal{N}(t,\x;\me(t,\Th),\cov(t,\Th))p(\xib)d\xib $}
+\begin{itemize}
+\item<1-> $p(\x|\Th)=\mathcal{N}(\x;\me,\cov)$
+\begin{align}\label{meanG}
+\dot{\me} &=\A(\Th)\me + \B\u\\
+\dot{\cov} &= \A(\Th)\cov+\cov\A^T(\Th)+\G(\Th) \Q \G^T(\Th)
+\end{align}
+\item Combining the state mean and covariance terms into a new state vector $\z \in \re^N$ where $N = n(n+3)/2$ leads to
+\begin{equation}
+\dot{\z}= \L(\Th)\z+\M(\Th)\w \label{sysdet2}
+\end{equation}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}\frametitle{\color{black}{Proposed Approach}}\framesubtitle{\color{white}{$\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et$}}
+\vspace{-0.1in}
+\begin{block}{Method 1: $\dot{\z}= \L(\Th)\z+\M(\Th)\w $}
+\begin{itemize}
+\item According to gPC
+\small{\begin{eqnarray}
+z_{i}(t,\xib) &= \sum\limits_{r=0}^P {z_i}_r(t)\phi_r(\xib) =& \z_i^T(t)\Phi(\xib) \label{states}\\
+\Th_j(\xib) &= \sum\limits_{r=0}^P {\th_j}_r\phi_r(\xib) =& \th_j^T\Phi(\xib) \label{params}\\
+L_{ij}(\Th) &= \sum\limits_{r=0}^P {L_{ij}}_r\phi_r(\xib) =& \v{l}_{ij}^T\Phi(\xib) \label{paramsA}\\
+M_{ij}(\Th) &= \sum\limits_{r=0}^P {M_{ij}}_r\phi_r(\xib) =& \v{m}_{ij}^T\Phi(\xib) \label{paramsB}
+\end{eqnarray}}
+\end{itemize}
+\end{block}
+\small{${L_{ij}}_r = \frac{\left\langle L_{ij}(\Th(\xib)),\phi_r(\xib)\right\rangle}{\left\langle \phi_r(\xib),\phi_r(\xib)\right\rangle}$
+${M_{ij}}_r = \frac{\left\langle M_{ij}(\Th(\xib)),\phi_r(\xib)\right\rangle}{\left\langle \phi_r(\xib),\phi_r(\xib)\right\rangle}$\\\vspace{0.2in}
+
+
+\alert{where $\left\langle u(\xib),v(\xib)\right\rangle = \int_{\om}{u(\xib)v(\xib)p(\xib)d\xib}$}}
+\end{frame}
+
+\begin{frame}\frametitle{\color{black}{Proposed Approach}}\framesubtitle{\color{white}{$\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et$}}
+
+\begin{block}{Method 1: $\dot{\z}= \L(\Th)\z+\M(\Th)\w $}
+\begin{itemize}
+\item Substitution of the approximate expressions for $\x$ and $\Th$ in moment equations leads to:
+\begin{align}\notag
+e_i(\xib) = &\dot{\z}_i^T\Phi(\xib)-\sum_{j=1}^N{\v{l}_{ij}^T\Phi(\xib)\z_j^T(t)\Phi(\xib)}-\sum_{j=1}^q{\v{m}_{ij}^T\Phi(\xib)w_j(t)}
+\end{align}
+\item Galerkin projection leads to following deterministic equations:
+\begin{align}
+&\left\langle e_i(\xib),\phi_r(\xib)\right\rangle = 0 \mbox{ for $i = 1,\ldots,N$ and $r = 0,\ldots,P$} \notag\\
+&\alert{\dot{\v{c}} = \A_p\v{c}+\B_p\w}
+\end{align}
+where, $\v{c}(t) = [\z_1^T(t),\z_2^T(t),\ldots,\z_N^T(t)]^T \in \re^{N(P+1)}$ is a vector of the gPC coefficients.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}\frametitle{\color{black}{Proposed Approach}}\framesubtitle{\color{white}{$\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et$}}
+
+\begin{block}{Method 1: $p(t,\x)=\int\limits_{\om}\mathcal{N}(t,\x;\me(t,\Th),\cov(t,\Th))p(\xib)d\xib $}
+\begin{itemize}
+\item The pdf of state vector $\x$ can be computed as follows:\vspace{-0.15in}
+\small{\begin{align}
+p(\x)&=\int\limits_{\om}\mathcal{N}\left(t,\x;\sum_{r=0}^P {z_i}_r(t)\phi_r(\xib)\right)p(\xib)d\xib \label{pdfeq1}
+\end{align}}\vspace{-0.2in}
+\item \alert{Quadrature integration} scheme can be used to evaluate the aforementioned integrals.
+\begin{itemize}
+\item Polynomial Chaos Quadrature (PCQ) {\color{blue}{[Dalbey et al., 2008]}}
+\end{itemize}
+\item<2-> The first two moments of the actual state vector $\x$ can be estimated analytically, as follows:\vspace{-0.2in}
+\small{\begin{align}
+\Ex{x_i(t)} &= \int\limits_{\om}{\Ex{\mathcal{N}(t,\x;\sum_{r=0}^P {z_i}_r(t)\phi_r(\xib))} p(\xib)d\xib}= {\mu_i}_0(t)\\
+\Ex{x_i^2(t)} &= \int\limits_{\om}{\Ex{x_i^2(t)|\xib} p(\xib)d\xib}= \sum_{r=0}^P {\mu_i}_r^2(t)\langle\phi_r^2\rangle + \Sigma_{ii_0}(t)\vspace{-0.1in}
+\end{align}}\vspace{-0.1in}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}\frametitle{\color{black}{Proposed Approach}}\framesubtitle{\color{white}{$\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et$}}
+\transboxin
+
+\begin{figure}\vspace{-0.22in}\centering
+\subfigure[\scriptsize{Method 1: Conditioning first on uncertain parameters [Konda et al., 2011]}]{\includegraphics[width=3.8in]{uncertprop1lq.pdf}\label{fig:meth1}\vspace{-0.2in}}
+\end{figure}
+\end{frame}
+\begin{frame}\frametitle{\color{black}{Proposed Approach}}\framesubtitle{\color{white}{$\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G(\Th)\et$}}
+\begin{figure}\vspace{-0.22in}\centering
+\subfigure[\scriptsize{Method 2: Conditioning first on Gaussian stochastic forcing [Konda et al., 2011]}]{\includegraphics[width=3.8in]{uncertprop2lq.pdf}\label{fig:meth2}}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{\color{black}{Proposed Approach}}\framesubtitle{\color{white}{Advantages}}
+\begin{itemize}
+\item One can compute the sensitivity of mean and covariance of conditional pdf $p(t,\x|\Th) = \mathcal{N}(t,\x;\z(\xib))$ with respect to unknown parameter vector $\Th(\xib)$.
+\item \alert{Computational Cost:}
+\begin{itemize}
+\item Method $1$: $n(n+3)(P+1)/2$ simultaneous deterministic ODEs.
+\item Method $2$: $n(P+1)\left[n(P+1)+3\right]/2$ simultaneous deterministic ODEs.
+\item SMC: $nN$ differential equations, $N$ being number of Monte Carlo samples.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\section{Numerical Results}
+%\begin{frame}\frametitle{Numerical Experiment}\framesubtitle{\color{white}{Spring Mass Damper System}}
+%\begin{itemize}
+%\item \alert{$m\ddot{x}+c\dot{x}+kx = u $}
+%\begin{itemize}
+%\item The spring stiffness $k$ is uncertain and assumed to be {\color{blue}{uniformly distributed}} between $1.5$ and $2.5$.
+%\item Input $u$ is assumed to zero mean Gaussian white noise with std. deviation of $2$.
+%\item True uncertainty evolution is assumed to be given by \alert{$10,000$ Monte Carlo runs.}
+%\item $7^{th}$ order gPC expansion is used to characterize the effect of parametric uncertainty.
+%\end{itemize}
+%\end{itemize}
+%
+%
+%\begin{figure}[h]\vspace{-0.2in}
+%\setlength{\unitlength}{8.0mm}
+%\subfigure[Mass-spring-damper system]{
+%\begin{picture}(11,5)(1.0,-1.5)
+%\thicklines \put(8,0){\framebox(2,2){$m$}} %\put(0,0){\framebox(2,2){$m_1$}}
+%\put(2,1.5){\line(1,0){1}} \put(3,1.5){\line(1,1){0.5}} \put(3.5,2.0){\line(1,-1){1}}
+%\put(4.5,1.0){\line(1,1){1}} \put(5.5,2.0){\line(1,-1){1}} \put(6.5,1.0){\line(1,1){0.5}}
+%\put(7,1.5){\line(1,0){1}} \put(5,1.9){\makebox(0,0)[t]{$k$}} \thinlines
+%\put(2,0.5){\line(1,0){3}} \put(5,0.0){\line(0,1){1}} \put(6,0.0){\line(0,1){1}}
+%\put(5.5,-0.2){\makebox(0,0)[t]{$c$}} \put(2,-0.5){\line(0,1){3}}
+%\put(2,-0.2){\line(-1,-1){0.5}} \put(2,0.1){\line(-1,-1){0.5}}
+%\put(2,0.4){\line(-1,-1){0.5}} \put(2,0.7){\line(-1,-1){0.5}}
+%\put(2,1.0){\line(-1,-1){0.5}} \put(2,1.3){\line(-1,-1){0.5}}
+%\put(2,1.6){\line(-1,-1){0.5}} \put(2,1.9){\line(-1,-1){0.5}}
+%\put(2,2.2){\line(-1,-1){0.5}} \put(2,2.5){\line(-1,-1){0.5}}
+% \put(6,0.5){\line(1,0){2}}
+%\put(4.9,0.0){\line(1,0){1.1}} \put(4.9,1.0){\line(1,0){1.1}}
+% \put(9,0){\line(0,-1){0.75}} \put(9,-0.5){\vector(1,0){1}}
+%\put(9.5,-0.6){\makebox(0,0)[t]{\small$x$}} %\put(9,2){\line(0,1){0.75}}
+%\put(9,2.8){\line(0,-1){0.75}}
+%\put(9.0,2.5){\vector(1,0){1}} \put(9.5,2.6){\makebox(0,0)[b]{\small$u$}}
+%\end{picture}
+%\label{fig:smd}}
+%%\subfigure[Evolution of nominal states]{\includegraphics[scale=0.5]{smdnomstates.pdf}\label{fig:nomstates}}
+%%\caption{Spring-Mass system} \label{fig:example1}
+%\end{figure}
+%
+%\end{frame}
+
+
+%\begin{frame}\frametitle{Preliminary Results}\framesubtitle{\color{white}{$m\ddot{x}+c\dot{x}+kx = u,\ k\in\mathcal{U}(1.5,2.5),\ u(t)\in\mathcal{N}(0,2) $}}
+%\begin{figure}
+%\subfigure[Evolution of nominal states]{\includegraphics[scale=0.5]{smdnomstates.pdf}\label{fig:nomstates}}
+%\end{figure}
+%\end{frame}
+
+%\begin{frame}\frametitle{Numerical Experiment}\framesubtitle{\color{white}{$m\ddot{x}+c\dot{x}+kx = u,\ k\in\mathcal{U}(1.5,2.5),\ u(t)\in\mathcal{N}(0,2) $}}
+%\begin{figure}\vspace{-0.3in}
+%\centering
+%\subfigure[\footnotesize{Propagation of mean}]{\includegraphics[width=1.7in]{smd_cm1.pdf}\label{fig:smdstmean}}
+%\subfigure[\footnotesize{Propagation of variance}]{\includegraphics[width=1.7in]{smd_cm2.pdf}\label{fig:smdstvar}}\vspace{-0.15in}
+%\subfigure[\footnotesize{Propagation of 3rd central moment}] {\includegraphics[width=1.7in]{smd_cm3.pdf}\label{fig:smdstcm3}}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}\frametitle{Numerical Experiment}\framesubtitle{\color{white}{$m\ddot{x}+c\dot{x}+kx = u,\ k\in\mathcal{U}(1.5,2.5),\ u(t)\in\mathcal{N}(0,2) $}}
+%\begin{center}
+%\begin{figure}
+%\includegraphics[width=4.6in]{smd_hist3tpdf10.pdf}
+%\caption{Histograms of the states at t = 10s}\label{fig:smdhist}
+%\end{figure}
+%\end{center}
+%\end{frame}
+
+\begin{frame}\frametitle{Numerical Experiment}\framesubtitle{\color{white}{Hovering Helicopter model}}
+%\begin{wrapfigure}{r}{1.2in}\vspace{-0.25in}
+%%\subfigure[Hovering helicopter\cite{dtenne:04}]{
+%\includegraphics[width=1.5in]{bryheli.pdf}\label{fig:bryheli}\vspace{-0.2in}
+%%\subfigure[Evolution of nominal states]{\includegraphics[width=2in]{brynomstates.pdf}\label{fig:helinomst}}
+%\end{wrapfigure}
+\begin{itemize}\vspace{-0.1in}
+\item \alert{$\dot{\x} = A\x+B\v{u}+B_w\v{u}_w, $} $\x=\left\{u_h,q_h,\theta_h,y \right\}^T$
+
+\small{$A = \begin{bmatrix} p_1 & p_2 & -g & 0\\ p_3 & p_4 & 0 & 0\\0 & 1 & 0 & 0\\1 & 0 & 0 & 0 \end{bmatrix},$ $B = \begin{bmatrix} p_5\\ p_6\\0\\0\end{bmatrix},$
+$B_w = \begin{bmatrix} -p_1\\ -p_3\\0\\0\end{bmatrix}$}
+
+\item \small{Four aerodynamic parameters are assumed to {\color{blue}{uniformly distributed}} with following bounds:}
+\footnotesize{$$
+\v{p}_{lb} = \begin{bmatrix} -0.049, 0.001, 0.126, -3.354  \end{bmatrix}^T,\  \v{p}_{ub} = \begin{bmatrix} -0.003, 0.025, 2.394, -0.177  \end{bmatrix}^T
+$$}
+\item \small{{\color{blue}{Modeling errors due to unsteady flow, $u_w$}} are assumed to be \alert{zero mean Gaussian white noise} with a variance of $\sigma_w^2=18 (ft/s)^2$.}
+\end{itemize}
+\begin{figure}\vspace{-0.2in}
+\subfigure[Hovering helicopter]{
+\includegraphics[width=1.5in]{bryheli.pdf}\label{fig:bryheli}}
+\subfigure[Nominal states]{\includegraphics[width=1.5in]{brynomstates.pdf}\label{fig:helinomst}}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Numerical Experiment}\framesubtitle{\color{white}{Hovering Helicopter model}}\vspace{-0.2in}
+\begin{figure}[ht]
+\centering
+\subfigure[\tiny{Propagation of mean}]{\includegraphics[width=2.1in]{bryheli_1e5cm1.pdf}\label{fig:helistmean}}
+\subfigure[\tiny{Propagation of variance}]{\includegraphics[width=2.1in]{bryheli_1e5cm2.pdf}\label{fig:helistvar}}\vspace{-0.05in}
+\subfigure[\tiny{Propagation of 3rd central moment}] {\includegraphics[width=2.1in]{bryheli_1e5cm3.pdf}\label{fig:helistcm3}}
+\subfigure[\tiny{3rd central moment with 10000 Monte Carlo runs}] {\includegraphics[width=2.1in]{bryheli_cm3.pdf}\label{fig:helistcm3less}}\vspace{-0.2in}
+\caption{\scriptsize Propagation of moments of the states [Konda et al., 2011]}\label{fig:helistmoments}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Numerical Experiment}\framesubtitle{\color{white}{Hovering Helicopter model}}\vspace{-0.2in}
+%\transblindshorizontal
+\begin{center}
+\begin{figure}
+%\centering
+\includegraphics[width=4.6in]{bryheli_1e5hist3tpdf5.pdf}
+\caption{\scriptsize Histograms of the states [Konda et al., 2011]}\label{fig:helihist}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}\frametitle{Preliminary Results}\framesubtitle{\color{white}{Iceland Volcano (Eyjafjallaj\"{o}kull) Eruption}}
+\begin{itemize}
+\item<1-> The {\color{blue}{\texttt{BENT} integral eruption column model}} was used to produce eruption column parameters (mass loading, column height, grain size distribution) given \textit{a specific atmospheric sounding and source conditions. }
+\begin{itemize}
+\item<1->  \texttt{BENT} takes into consideration atmospheric (wind) conditions as given by atmospheric sounding data. 
+\item<1-> Plume rise height is given as \alert{\textit{a function of volcanic source and environmental conditions. }}
+\end{itemize}
+\item<2-> The {\color{blue}{\texttt{PUFF} Lagrangian model}} was used to propagate ash parcels in \textit{a given wind field (NCEP Reanalysis). }
+\begin{itemize}
+\item<2-> \texttt{PUFF} takes into account dry deposition as well as dispersion and advection.  
+\end{itemize}
+\item<3-> Polynomial chaos quadrature (PCQ) was used to select sample points and weights in the uncertain input space of \alert{vent radius, vent velocity, mean particle size and particle size variance. }
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Preliminary Results}\framesubtitle{\color{white}{Iceland Volcano (Eyjafjallaj\"{o}kull) Eruption}}
+\vspace{-0.2in}
+\begin{table}[htb]\footnotesize
+\begin{center}\footnotesize
+\caption{Eruption source parameters based on observations of
+  Eyjafjallaj\"{o}kull volcano and information from other similar
+  eruptions.}\label{tab1}
+\begin{tabular}{|p{0.6in}|p{0.6in}|p{0.6in}|p{1.5in}|}
+\hline \hline
+Parameter & Value range & PDF & Comment \\
+\hline \hline
+Vent radius, $b_0$, m & 65-150 & Uniform & Measured from radar image of summit vents\\
+\hline
+Vent velocity, $w_0$, m/s & Range: 45-124 & Uniform & M. Ripepe, Geneva, Switzerland, 2010, presentation \\
+\hline
+Mean grain size, $Md_\varphi$ & 2 boxcars: 1.5-2 and 3-5 & Multi-Modal Uniform & Woods and Bursik (1991), Table 1, vulcanian
+and phreatoplinian. A. Hoskuldsson, Iceland meeting 2010, presentation\\%, `vulcanian with unusual production of  fine ash.' \\
+\hline
+$\sigma_\varphi$ & $1.9 \pm 0.6$ & Uniform& Woods and Bursik (1991), Table 1, vulcanian
+and phreatoplinian. \\
+\hline \hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{frame}
+
+\begin{frame}\frametitle{Preliminary Results}\framesubtitle{\color{white}{Iceland Volcano (Eyjafjallaj\"{o}kull) Eruption}}
+\vspace{-0.1in}
+\begin{figure}
+\centering
+\only<1>{\includegraphics[width=3in]{../figures/conver}%\vspace{-0.15in}
+\caption{Concentration (52N 13.5E) vs. Number of \texttt{PUFF} Particles}}
+\only<2>{\includegraphics[width=3in]{../figures/timing}\vspace{-0.15in}}
+\end{figure}
+\only<2>{\begin{table}[htb]
+\begin{center}\tiny
+\begin{tabular}{|p{0.15in}|p{0.42in}|p{0.42in}|p{0.42in}|p{0.42in}|p{0.42in}|p{0.42in}|p{0.42in}|}
+\hline\hline
+%\only<1>{nAsh &$10^5$ & $5\times10^5$ & $10^6$ & $2\times10^6$ & $4\times10^6$ & $8\times10^6$ & $10^7$   \\\hline\hline
+%Conc. & $7.40\times 10^{-5}$ & $1.17\times 10^{-4}$ & $1.07\times 10^{-4}$ & $1.12\times 10^{-4}$ & $1.09\times 10^{-4}$ & $1.15\times 10^{-4}$ & $1.10\times 10^{-4}$\\\hline\hline}
+nAsh &$10^5$ & $5\times10^5$ & $10^6$ & $2\times10^6$ & \color{blue}{$4\times10^6$} & $8\times10^6$ & $10^7$   \\\hline\hline
+Conc. & $7.40\times 10^{-5}$ & $1.17\times 10^{-4}$ & $1.07\times 10^{-4}$ & $1.12\times 10^{-4}$ & \color{blue}{$1.09\times 10^{-4}$} & $1.15\times 10^{-4}$ & $1.10\times 10^{-4}$\\\hline\hline
+\end{tabular}
+\end{center}
+\end{table}}
+\end{frame}
+
+\begin{frame}\frametitle{Preliminary Results}\framesubtitle{\color{white}{Iceland Volcano (Eyjafjallaj\"{o}kull) Eruption}}
+%\graphicspath{{/Users/psingla/Documents/PuneetDocs/Publications/Conferences/ACC/ACC10/stochForcingLin/Figures/}}
+
+\begin{center}
+\begin{figure}
+\centering
+\only<1>{\includegraphics[width=4in]{../figures/ash_ret_goesr_ash_top_height_in_geocatL2_Meteosat_9_2010106_1200.pdf}
+\caption{SEVIRI Data: Ash Top Height (16th April, 2010)}}
+\only<2>{\includegraphics[width=4in]{../figures/maxheight_of_concentration_excee-in-pcq-13CCUniformRe-height4M.pdf}
+\caption{PCQ Runs: Ash Top Height (Mean) (16th April, 2010)}}
+\only<3>{\includegraphics[width=4in]{../figures/maxheight_stddev-in-pcq-13CCUniformRe-height4M.pdf}
+\caption{PCQ Runs: Ash Top Height (Std. Dev.) (16th April, 2010)}}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+\begin{frame}\frametitle{Preliminary Results}\framesubtitle{\color{white}{Iceland Volcano (Eyjafjallaj\"{o}kull) Eruption}}
+
+\begin{center}
+\begin{figure}
+\centering
+\only<1>{\includegraphics[width=3.5in]{../figures/Top_Height_sat_15_16Apr.jpg}
+\caption{SEVIRI Data: Ash Top Height (15th \&16th April, 2010)}}
+\only<2>{\includegraphics[width=3.5in]{../figures/Top_Height_15_16Apr_oversamples.jpg}
+\caption{PCQ Runs: Ash Top Height  (15th \& 16th April, 2010)}}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+
+%\begin{frame}\frametitle{Preliminary Results}\framesubtitle{\color{white}{Iceland Volcano (Eyjafjallaj\"{o}kull) Eruption}}
+%\begin{table}[htb]\footnotesize
+%\begin{center}
+%\caption{\footnotesize {Comparison of footprint forecast for April 16 (mean + $3\times$ standard deviation) and satellite data using $9^4$ and $13^4$ points of Clenshaw Curtis quadrature rule based PCQ. }
+%%Dice=(Area of intersection)/(Area of union); PCQ given Sat=(Area of Intersection)/(Area of Satellite); Sat given PCQ=(Area of Intersection)/(Area of PCQ) 
+%}\label{tab2}
+%\begin{tabular}{|p{0.6in}|p{0.6in}|p{0.6in}|p{0.6in}|p{0.6in}|}
+%\hline \hline
+%Metric of Footprint & 0$<$h$<$5km $9^4$ points& 0$<$h$<$5km $13^4$ points & 5$<$h$<$10km $9^4$ points & 5$<$h$<$10km $13^4$ points \\
+%\hline \hline
+%Dice & 0.7367 & 0.7389& 0.9469 & 0.9479  \\ \hline
+%\alert{PCQ given Sat} & \alert{0.9870} & \alert{0.9873} & \alert{0.9905} & \alert{0.9905}  \\ \hline
+%\color{blue}{Sat given PCQ} & \color{blue}{0.7714}& \color{blue}{0.7460} & \color{blue}{0.9556} & \color{blue}{0.9565}  \\\hline
+%\hline
+%\end{tabular}
+%\end{center}\vspace{-0.2in}
+%\end{table}
+%\scriptsize
+%\begin{center}
+%\begin{itemize}
+%\item \textit{Dice} = $\frac{area(Sat\cap PCQ)}{area(Sat\cup PCQ)} $ is a measure of similarity of two images. 
+%\item \alert{\textit{PCQ given Sat} = $\frac{area(Sat\cap PCQ)}{area(Sat)}$ is a measure of \textit{(1-false negatives)}.}
+%\item {\color{blue}{\textit{Sat given PCQ} = $\frac{area(Sat\cap PCQ)}{area(PCQ)} $ is a measure of \textit{(1-false positives)}. }}
+%\end{itemize}
+%\end{center}
+%\end{frame}
+%
+%\begin{frame}\frametitle{Preliminary Results}\framesubtitle{\color{white}{Iceland Volcano (Eyjafjallaj\"{o}kull) Eruption}}
+%\begin{table}[htb]\footnotesize
+%\begin{center}
+%\caption{\footnotesize {Comparison of footprint forecast for April 15 \& 16  and satellite data using $9^4$ and $13^4$ points of Clenshaw Curtis quadrature rule based PCQ. }
+%%Dice=(Area of intersection)/(Area of union); PCQ given Sat=(Area of Intersection)/(Area of Satellite); Sat given PCQ=(Area of Intersection)/(Area of PCQ) 
+%}\label{tab2}
+%\begin{tabular}{|p{0.6in}|p{0.6in}|p{0.6in}|p{0.6in}|p{0.6in}|}
+%\hline \hline
+%Metric of Footprint & 0$<$h$<$5km $9^4$ points& 0$<$h$<$5km $13^4$ points & 5$<$h$<$10km $9^4$ points & 5$<$h$<$10km $13^4$ points \\
+%\hline \hline
+%Dice & 0.6801 & 0.3926& 0.6905 & 0.7070  \\ \hline
+%\alert{PCQ given Sat} & \alert{0.7804} & \alert{0.6879} & \alert{0.8679} & \alert{0.8655}  \\ \hline
+%\color{blue}{Sat given PCQ} & \color{blue}{0.4777}& \color{blue}{0.8516} & \color{blue}{0.7716} & \color{blue}{0.7943}  \\\hline
+%\hline
+%\end{tabular}
+%\end{center}\vspace{-0.2in}
+%\end{table}
+%\scriptsize
+%\begin{center}
+%\begin{itemize}
+%\item \textit{Dice} = $\frac{area(Sat\cap PCQ)}{area(Sat\cup PCQ)} $ is a measure of similarity of two images. 
+%\item \alert{\textit{PCQ given Sat} = $\frac{area(Sat\cap PCQ)}{area(Sat)}$ is a measure of \textit{(1-false negatives)}.}
+%\item {\color{blue}{\textit{Sat given PCQ} = $\frac{area(Sat\cap PCQ)}{area(PCQ)} $ is a measure of \textit{(1-false positives)}. }}
+%\end{itemize}
+%\end{center}
+%\end{frame}
+
+
+\section{Concluding Remarks}
+
+\begin{frame}\frametitle{Concluding Remarks}\framesubtitle{\color{white}{What needs to be done}}
+\transboxin
+
+\begin{itemize}
+\item<1->  Efficient hybrid Bayesian approach is developed for the accurate determination of uncertainty propagation in linear dynamic models with
+\begin{itemize}
+\item<1-> \alert{\textit{Parametric, initial condition uncertainties, and driven by additive white Gaussian noise (AWGN) process.}}
+\item<1-> Can be extended for nonlinear systems using {\color{blue}{\textit{Kolmogorov equation}.}}
+\end{itemize}
+\item<2-> The uncertainty due to stochastic forcing is propagated using {\color{blue}{mean and covariance propagation equations}} and that due to \textit{uncertain model parameters using polynomial chaos.}
+\begin{itemize}
+\item<2-> The moment propagation equations are \alert{exact only for white Gaussian stochastic forcing} in linear dynamic models, the polynomial chaos approach can be used for {\color{blue}{any probability distribution of model parameters.}}
+\end{itemize}
+\item<3->  Proposed approach is \alert{less computationally demanding} than the standard Monte Carlo methods.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Concluding Remarks}\framesubtitle{\color{white}{What needs to be done}}
+\transboxin
+\begin{itemize}
+\item<1->  We were able to predict ash footprint with good confidence even though source uncertainty is large.
+\begin{itemize}
+\item<1-> {\color{blue}{\textit{False positives are large.}}}
+\item<1-> Predicted average mass loading is of \textit{similar magnitude} assuming a 1-km thick down wind plume as suggested by CALIPSO data.
+\item<1-> \alert{Convergence in concentration value is slow.}
+\end{itemize}
+\item<2-> The PCQ approach uses \texttt{BENT} and \texttt{PUFF} as black-box models
+\begin{itemize}
+\item<2->  \alert{Any other models} for ash dispersion can be included in the uncertainty analysis.
+\end{itemize}
+\item<3-> Effect of uncertainty in wind data still needs to be analyzed.
+\begin{itemize}
+\item<3->{\color{blue}{Uncertainty Marriage}}
+\end{itemize}
+\item<4->  \alert{Question arise:} \textit{Can we estimate the distribution of source parameters using Satellite imagery or other sensory data? }
+\begin{itemize}
+\item<4-> \alert{Likelihood functions:} validating the sensor data.
+\item<4-> \textit{uniqueness of the parameters.}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\end{document}

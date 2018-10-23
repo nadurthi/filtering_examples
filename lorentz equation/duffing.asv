@@ -1,0 +1,381 @@
+% duffing equation
+clear
+clc
+tf=10;
+dt=0.01;
+
+%duffing oscillator
+ Po=1*eye(2);
+ mu=[1,4]';
+ %linear
+% f=@(t,x)([x(2);-10*x(2)-10*x(1)-0*x(1)^3]);
+%nonlinear
+f=@(t,x)([x(2);-0*x(2)+5*x(1)-0.*x(1)^3+0*sin(0.001*t)]);
+
+% moms=@(X,w,n)(sum(w.*(X(:,1).^n(1)).*(X(:,2).^n(2))));
+%% Monte carlo runs
+% % opt=odeset('reltol',1e-8,'abstol',1e-8);
+% for N=1000:3000:10000
+% Xo = mvnrnd(mu',Po,N);
+% w=ones(length(Xo),1)/length(Xo);
+% X=zeros(length(Xo),length(0:dt:tf),2);
+% for i=1:1:length(Xo)
+%     [t,x]=ode45(f,0:dt:tf,Xo(i,:));
+% X(i,:,:)=x;
+% end
+% mc_mom_1=zeros(length(0:dt:tf),2);
+% mc_mom_2=zeros(length(0:dt:tf),3);
+% mc_mom_3=zeros(length(0:dt:tf),4);
+% mc_mom_4=zeros(length(0:dt:tf),5);
+% for tt=1:1:length(t)
+% mc_mom_1(tt,:)=[sum(w.*X(:,tt,1)),sum(w.*X(:,tt,2))];
+% 
+% mc_mom_2(tt,:)=[sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^2),sum(w.*(X(:,tt,2)-mc_mom_1(tt,2)).^2),...
+%                 sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).*(X(:,tt,2)-mc_mom_1(tt,2)))];
+%             
+% mc_mom_3(tt,:)=[sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^3),sum(w.*(X(:,tt,2)-mc_mom_1(tt,2)).^3),...
+%                 sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^2.*(X(:,tt,2)-mc_mom_1(tt,2))),...
+%                 sum(w.*(X(:,tt,2)-mc_mom_1(tt,2)).^2.*(X(:,tt,1)-mc_mom_1(tt,1)))];
+%             
+% mc_mom_4(tt,:)=[sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^4),sum(w.*(X(:,tt,2)-mc_mom_1(tt,2)).^4),...
+%                 sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^2.*(X(:,tt,2)-mc_mom_1(tt,2)).^2),...
+%                 sum(w.*(X(:,tt,2)-mc_mom_1(tt,2)).^3.*(X(:,tt,1)-mc_mom_1(tt,1))),...
+%                 sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^3.*(X(:,tt,2)-mc_mom_1(tt,2)))];
+% end
+% save(num2str(N), 'mc_mom_1','mc_mom_2','mc_mom_3','mc_mom_4');
+% N
+% end
+% %% Calculating the moments of MC at each time step
+% %mean
+% mc_mom_1=zeros(length(0:dt:tf),2);
+% for tt=1:1:length(t)
+% mc_mom_1(tt,:)=[sum(w.*X(:,tt,1)),sum(w.*X(:,tt,2))];
+% end
+% 
+% 
+% % raw second moment
+% mc_mom_2=zeros(length(0:dt:tf),3);
+% for tt=1:1:length(t)
+% %     for i=1:1:length(Xo)
+%         mc_mom_2(tt,:)=[sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^2),sum(w.*(X(:,tt,2)-mc_mom_1(tt,2)).^2),sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).*(X(:,tt,2)-mc_mom_1(tt,2)))];
+% %     end
+% end
+% 
+% 
+% % raw third moment
+% mc_mom_3=zeros(length(0:dt:tf),4);
+% for tt=1:1:length(t)
+% %     for i=1:1:length(Xo)
+%         mc_mom_3(tt,:)=[sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^3),sum(w.*(X(:,tt,2)-mc_mom_1(tt,2)).^3),sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^2.*(X(:,tt,2)-mc_mom_1(tt,2))),sum(w.*(X(:,tt,2)-mc_mom_1(tt,2)).^2.*(X(:,tt,1)-mc_mom_1(tt,1)))];
+% %     end
+% end
+% 
+% % raw 4th moment
+% mc_mom_4=zeros(length(0:dt:tf),5);
+% for tt=1:1:length(t)
+% %     for i=1:1:length(Xo)
+%         mc_mom_4(tt,:)=[sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^4),sum(w.*(X(:,tt,2)-mc_mom_1(tt,2)).^4),sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^2.*(X(:,tt,2)-mc_mom_1(tt,2)).^2),sum(w.*(X(:,tt,2)-mc_mom_1(tt,2)).^3.*(X(:,tt,1)-mc_mom_1(tt,1))),sum(w.*(X(:,tt,1)-mc_mom_1(tt,1)).^3.*(X(:,tt,2)-mc_mom_1(tt,2)))];
+% %     end
+% end
+% % save mc_mom
+%% UT 2n+1
+M1=[];
+M2=[];
+M3=[];
+M4=[];
+nn=1;
+for NN=2:1:5
+% for NN=[2,5,8,10]
+% [Xo,w]=UT_sigmapoints(mu,Po,2);
+% [Xo,w]=GH_points(mu,Po,NN);
+  [Xo,w]=get_colocation(NN*[1 1], mu'-1/4, mu'+1/4);
+
+Xut=zeros(length(Xo),length(0:dt:tf),2);
+opt=odeset('reltol',1e-12,'abstol',1e-12);
+close all
+for i=1:1:length(Xo)
+    [t,x]=ode45(f,0:dt:tf,Xo(i,:));
+    figure(7)    
+%     grid
+    plot(x(:,1),x(:,2))
+    axis([-10,10,-10,10])
+    hold on
+    plot(Xo(:,1),Xo(:,2),'ro')
+    pause(0.1)
+Xut(i,:,:)=x;
+end
+% pause(2)
+% figure(5)
+% for i=1:1:length(Xo)
+% plot(Xut(i,:,1),Xut(i,:,2))
+% hold on
+% end
+% grid
+% figure(5)
+% plot(Xo(:,1),Xo(:,2),'r*')
+%mean
+ut_mom_1=zeros(length(0:dt:tf),2);
+for tt=1:1:length(t)
+% ut_mom_1(tt,:)=[sum(w.*Xut(:,tt,1)),sum(w.*Xut(:,tt,2))];
+ut_mom_1(tt,:)=cal_all_moms([Xut(:,tt,1),Xut(:,tt,2)],w,1,'central');
+end
+
+% figure(5)
+% plot(ut_mom_1(:,1),ut_mom_1(:,2),'r')
+% raw second moment
+ut_mom_2=zeros(length(0:dt:tf),3);
+for tt=1:1:length(t)
+ut_mom_2(tt,:)=cal_all_moms([Xut(:,tt,1),Xut(:,tt,2)],w,2,'central');
+end
+
+% raw third moment
+ut_mom_3=zeros(length(0:dt:tf),4);
+for tt=1:1:length(t)
+ut_mom_3(tt,:)=cal_all_moms([Xut(:,tt,1),Xut(:,tt,2)],w,3,'central');
+end
+% raw 4th moment
+ut_mom_4=zeros(length(0:dt:tf),5);
+for tt=1:1:length(t)
+ut_mom_4(tt,:)=cal_all_moms([Xut(:,tt,1),Xut(:,tt,2)],w,4,'central');
+end
+% %% Plotting
+% %Means
+%  figure(1)
+% subplot(1,2,1) 
+% hold on
+% plot(0:dt:tf,mc_mom_1(:,1),0:dt:tf,ut_mom_1(:,1),'Linewidth',2)
+% axis square
+% legend('MC','UT')
+% xlabel('t')
+% ylabel('mu1')
+% 
+% subplot(1,2,2)
+% hold on
+% plot(0:dt:tf,mc_mom_1(:,2),0:dt:tf,ut_mom_1(:,2),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('mu2')
+% legend('MC','UT')
+% 
+% 
+% 
+% % 2nd raw moment
+% figure(2)
+% subplot(1,3,1)
+% hold on
+% plot(0:dt:tf,mc_mom_2(:,1),0:dt:tf,ut_mom_2(:,1),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_1^2]')
+% legend('MC','UT')
+% 
+% 
+% subplot(1,3,2)
+% hold on
+% plot(0:dt:tf,mc_mom_2(:,2),0:dt:tf,ut_mom_2(:,2),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_2^2]')
+% legend('MC','UT')
+% 
+% 
+% subplot(1,3,3)
+% hold on
+% plot(0:dt:tf,mc_mom_2(:,3),0:dt:tf,ut_mom_2(:,3),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_3^2]')
+% legend('MC','UT')
+% 
+% % 3rd raw moment
+% figure(3)
+% hold on
+% subplot(2,2,1) 
+% plot(0:dt:tf,mc_mom_3(:,1),0:dt:tf,ut_mom_3(:,1),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_1^3]')
+% legend('MC','UT')
+% 
+% 
+% subplot(2,2,2)
+% hold on
+% plot(0:dt:tf,mc_mom_3(:,2),0:dt:tf,ut_mom_3(:,2),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_2^3]')
+% legend('MC','UT')
+% 
+% 
+% subplot(2,2,3)
+% hold on
+% plot(0:dt:tf,mc_mom_3(:,3),0:dt:tf,ut_mom_3(:,3),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_2^2x_1]')
+% legend('MC','UT')
+% 
+% subplot(2,2,4)
+% hold on
+% plot(0:dt:tf,mc_mom_3(:,4),0:dt:tf,ut_mom_3(:,4),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_1^2x_2]')
+% legend('MC','UT')
+% 
+% % 4th raw moment
+% figure(4)
+% hold on
+% subplot(2,3,1) 
+% plot(0:dt:tf,mc_mom_4(:,1),0:dt:tf,ut_mom_4(:,1),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_1^4]')
+% legend('MC','UT')
+% 
+% 
+% subplot(2,3,2)
+% hold on
+% plot(0:dt:tf,mc_mom_4(:,2),0:dt:tf,ut_mom_4(:,2),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_1^4]')
+% legend('MC','UT')
+% 
+% 
+% subplot(2,3,3)
+% hold on
+% plot(0:dt:tf,mc_mom_4(:,3),0:dt:tf,ut_mom_4(:,3),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_2^2x_1^2]')
+% legend('MC','UT')
+% 
+% subplot(2,3,4)
+% hold on
+% plot(0:dt:tf,mc_mom_4(:,4),0:dt:tf,ut_mom_4(:,4),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_2^3x_1]')
+% legend('MC','UT')
+% 
+% subplot(2,3,5)
+% hold on
+% plot(0:dt:tf,mc_mom_4(:,5),0:dt:tf,ut_mom_4(:,5),'Linewidth',2)
+% axis square
+% xlabel('t')
+% ylabel('E[x_1^3x_2]')
+% legend('MC','UT')
+
+% rmse_err_means(NN,:)=[sqrt(sum((mc_mom_1(:,1)-ut_mom_1(:,1)).^2)),sqrt(sum((mc_mom_1(:,2)-ut_mom_1(:,2)).^2))];
+% rmse_err_2ndmom(NN,:)=[sqrt(sum((mc_mom_2(:,1)-ut_mom_2(:,1)).^2)),sqrt(sum((mc_mom_2(:,2)-ut_mom_2(:,2)).^2)),...
+%                  sqrt(sum((mc_mom_2(:,3)-ut_mom_2(:,3)).^2))];
+% rmse_err_3rdmom(NN,:)=[sqrt(sum((mc_mom_3(:,1)-ut_mom_3(:,1)).^2)),sqrt(sum((mc_mom_3(:,2)-ut_mom_3(:,2)).^2)),...
+%                  sqrt(sum((mc_mom_3(:,3)-ut_mom_3(:,3)).^2)),sqrt(sum((mc_mom_3(:,4)-ut_mom_3(:,4)).^2))];
+% rmse_err_4thmom(NN,:)=[sqrt(sum((mc_mom_4(:,1)-ut_mom_4(:,1)).^2)),sqrt(sum((mc_mom_4(:,2)-ut_mom_4(:,2)).^2)),...
+%                  sqrt(sum((mc_mom_4(:,3)-ut_mom_4(:,3)).^2)),sqrt(sum((mc_mom_4(:,4)-ut_mom_4(:,4)).^2)),sqrt(sum((mc_mom_4(:,5)-ut_mom_4(:,5)).^2))];
+%              
+%    
+%
+NN
+% ut=struct('m1',ut_mom_1,'m2',ut_mom_2,'m3',ut_mom_3,'m4',ut_mom_4);
+% ut=setfield(ut,strcat('m1',num2str(NN)),ut_mom_1);
+% ut=setfield(ut,strcat('m2',num2str(NN)),ut_mom_2);
+% ut=setfield(ut,strcat('m3',num2str(NN)),ut_mom_3);
+% ut=setfield(ut,strcat('m4',num2str(NN)),ut_mom_4);
+M1(nn,:,:)=ut_mom_1;
+M2(nn,:,:)=ut_mom_2;
+M3(nn,:,:)=ut_mom_3;
+M4(nn,:,:)=ut_mom_4;
+nn=nn+1;
+
+end
+% for i=2:1:NN
+    figure(1)
+%     title('E[x_1]')
+%     subplot(5,5,i-1)
+    plot(0:dt:tf,M1(1,:,1),0:dt:tf,M1(2,:,1),0:dt:tf,M1(3,:,1),0:dt:tf,M1(4,:,1))
+legend('N=2','N=3','N=4','N=5')
+title('E[x_1]')
+    figure(2)
+%     title('E[x_1]')
+%     subplot(5,5,i-1)
+    plot(0:dt:tf,M1(1,:,2),0:dt:tf,M1(2,:,2),0:dt:tf,M1(3,:,2),0:dt:tf,M1(4,:,2))
+legend('N=2','N=3','N=4','N=5')
+title('E[x_2]')
+    %     title(strcat('E[x_1] GH',num2str(i)))
+%     figure(2)
+% %     title('E[x_2]')
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M1(i,:,2))
+%     title(strcat('E[x_2] GH',num2str(i)))
+% end
+% for i=2:1:NN
+ figure(3)
+plot(0:dt:tf,M2(1,:,1),0:dt:tf,M2(2,:,1),0:dt:tf,M2(3,:,1),0:dt:tf,M2(4,:,1))
+legend('N=2','N=3','N=4','N=5')
+title('E[x_1^2]')
+
+ figure(4)
+plot(0:dt:tf,M2(1,:,2),0:dt:tf,M2(2,:,2),0:dt:tf,M2(3,:,2),0:dt:tf,M2(4,:,2))
+legend('N=2','N=3','N=4','N=5')
+title('E[x_2x_1]')
+ figure(5)
+plot(0:dt:tf,M2(1,:,3),0:dt:tf,M2(2,:,3),0:dt:tf,M2(3,:,3),0:dt:tf,M2(4,:,3))
+legend('N=2','N=3','N=4','N=5')
+title('E[x_2^2]')
+% %     title('E[x_1^2]')
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M2(i,:,1))
+%     title(strcat('E[x_1^2] GH',num2str(i)))
+%     figure(4)
+% %     title('E[x_1x_2]')
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M2(i,:,2))
+%     title(strcat('E[x_1x_2] GH',num2str(i)))
+%     figure(5)
+% %     title('E[x_2]^2')
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M2(i,:,3))
+%     title(strcat('E[x_2^2] GH',num2str(i)))
+% end
+% for i=2:1:NN
+%     figure(6)
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M3(i,:,1))
+%     title(strcat('E[x_1^3] GH',num2str(i)))
+%     figure(7)
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M3(i,:,2))
+%     title(strcat('E[x_1^2x_2] GH',num2str(i)))
+%     figure(8)
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M3(i,:,3))
+%     title(strcat('E[x_1x_2^2] GH',num2str(i)))
+%     figure(9)
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M3(i,:,4))
+%     title(strcat('E[x_2^3] GH',num2str(i)))
+% end
+% for i=2:1:NN
+%     figure(10)
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M4(i,:,1))
+%     title(strcat('E[x_1^4] GH',num2str(i)))
+%     figure(11)
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M4(i,:,2))
+%     title(strcat('E[x_1^3x_2] GH',num2str(i)))
+%     figure(12)
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M4(i,:,3))
+%     title(strcat('E[x_1^2x_2^2] GH',num2str(i)))
+%     figure(13)
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M4(i,:,4))
+%     title(strcat('E[x_1x_2^3] GH',num2str(i)))
+%     figure(14)
+%     subplot(5,5,i-1)
+%     plot(0:dt:tf,M4(i,:,5))
+%     title(strcat('E[x_2^4] GH',num2str(i)))
+% end

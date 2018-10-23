@@ -1,0 +1,86 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out
+                                                          % if you need a4paper
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4
+                                                          % paper
+
+\IEEEoverridecommandlockouts                              % This command is only
+                                                          % needed if you want to
+                                                          % use the \thanks command
+\overrideIEEEmargins
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{amsmath}
+%\usepackage{amsthm}
+%\usepackage{verbatim}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+
+\newcommand{\comments}[1]{}
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+
+
+% The following packages can be found on http:\\www.ctan.org
+\usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{epsfig} % for postscript graphics files
+\usepackage{mathptmx} % assumes new font selection scheme installed
+\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+
+\usepackage{amsmath}
+\interdisplaylinepenalty=2500
+
+\title{\LARGE \bf
+The Conjugate Unscented Transform - An Approach to Evaluate Multi-Dimensional Stochastic Integrals
+}
+\comments{
+\author{ \parbox{3 in}{\centering Huibert Kwakernaak*
+         \thanks{*Use the $\backslash$thanks command to put information here}\\
+         Faculty of Electrical Engineering, Mathematics and Computer Science\\
+         University of Twente\\
+         7500 AE Enschede, The Netherlands\\
+         {\tt\small h.kwakernaak@autsubmit.com}}
+         \hspace*{ 0.5 in}
+         \parbox{3 in}{ \centering Pradeep Misra**
+         \thanks{**The footnote marks may be inserted manually}\\
+        Department of Electrical Engineering \\
+         Wright State University\\
+         Dayton, OH 45435, USA\\
+         {\tt\small pmisra@cs.wright.edu}}
+}
+}
+\author{\begin{tabular}{cccc}
+ Nagavenkat Adurthi  &  Puneet Singla &  Tarunraj Singh \\
+Graduate Student & Assistant Professor & Professor \\
+nagavenk@buffalo.edu & psingla@buffalo.edu & tsingh@buffalo.edu \vspace{0.01in}\end{tabular}\\
+%\textsl{Department of Mechanical \& Aerospace Engineering}\\
+\textsl{University at Buffalo, State University of New York,
+Amherst, NY 14260-4400}}
+
+\begin{document}
+
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \begin{figure}[thpb]
+      \centering
+      \includegraphics[width=0.15\textwidth]{4thmoment2d1}
+      \caption{2D and 3D Cubature points to satisfy 4th order moments}
+      \label{fig:23d4m1}
+   \end{figure}
+
+\end{document}

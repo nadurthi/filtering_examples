@@ -1,0 +1,36 @@
+This is BibTeX, Version 0.99cThe top-level auxiliary file: C:\Documents and Settings\Nagnanamus\Desktop\paper write\StochForcing.aux
+The style file: ieeetran.bst
+I couldn't open database file Fusion09.bib
+---line 53 of file C:\Documents and Settings\Nagnanamus\Desktop\paper write\StochForcing.aux
+ : \bibdata{Fusion09
+ :                  ,refs}
+I'm skipping whatever remains of this command
+I found no database files---while reading file C:\Documents and Settings\Nagnanamus\Desktop\paper write\StochForcing.aux
+Warning--I didn't find a database entry for "adelman:86"
+Warning--I didn't find a database entry for "xie:94"
+Warning--I didn't find a database entry for "xia:01"
+Warning--I didn't find a database entry for "rao:05"
+Warning--I didn't find a database entry for "stott:02"
+Warning--I didn't find a database entry for "doucet"
+Warning--I didn't find a database entry for "GaussClosure"
+Warning--I didn't find a database entry for "linear"
+Warning--I didn't find a database entry for "lefeb1"
+Warning--I didn't find a database entry for "lefeb2"
+Warning--I didn't find a database entry for "Helton:06"
+Warning--I didn't find a database entry for "DaumCurse"
+Warning--I didn't find a database entry for "wiener"
+Warning--I didn't find a database entry for "cameron:47"
+Warning--I didn't find a database entry for "ghanem:91"
+Warning--I didn't find a database entry for "xiu:02"
+Warning--I didn't find a database entry for "sandu:06"
+Warning--I didn't find a database entry for "ghanem:99"
+Warning--I didn't find a database entry for "najm:09"
+Warning--I didn't find a database entry for "knio:06"
+Warning--I didn't find a database entry for "hover:06"
+Warning--I didn't find a database entry for "augustin:08"
+-- IEEEtran.bst version 1.13 (2008/09/30) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+
+Done.
+(There were 2 error messages)

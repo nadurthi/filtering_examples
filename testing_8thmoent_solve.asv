@@ -1,0 +1,13 @@
+%testing_till_8thmoment_eqns_solve
+%x0=[w1,r1,w2,r2,w3,r3,w4,r4,r]
+%x(1)=w1
+%x(2)=r1;
+%x(3)=w2
+%x(4)=r2
+%x(5)=w3
+%x(6)=r3
+%x(7)=w4;
+%x(8)=r4;
+%x(9)=r;
+x0=[0.2,1.5,0.05,1.8,0.0002,3,0.003,,2];
+x=fsolve(@moment8,x0)

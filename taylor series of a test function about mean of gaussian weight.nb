@@ -1,0 +1,1467 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     48860,       1457]
+NotebookOptionsPosition[     47743,       1421]
+NotebookOutlinePosition[     48086,       1436]
+CellTagsIndexPosition[     48043,       1433]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData["Series"], "Input",
+ CellChangeTimes->{{3.521570103204813*^9, 3.5215701220218706`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Simplify", "[", 
+  RowBox[{"Series", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Sqrt", "[", 
+      RowBox[{"1", "+", " ", 
+       RowBox[{"x1", "^", "2"}], "+", " ", 
+       RowBox[{"x2", "^", "2"}]}], "]"}], "^", 
+     RowBox[{"(", 
+      RowBox[{"-", "5"}], ")"}]}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x1", ",", "0", ",", "4"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x2", ",", "0", ",", "4"}], "}"}]}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5215701254067373`*^9, 3.5215702080255375`*^9}, {
+  3.5215702635954432`*^9, 3.521570286578491*^9}, {3.521570338843645*^9, 
+  3.521570339734926*^9}, {3.521570491212741*^9, 3.521570515988366*^9}, {
+  3.5215705652592144`*^9, 3.5215705895241055`*^9}, {3.521570641959504*^9, 
+  3.5215707442966576`*^9}, {3.5215708247223043`*^9, 3.521570871769955*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "-", 
+      FractionBox[
+       RowBox[{"5", " ", 
+        SuperscriptBox["x2", "2"]}], "2"], "+", 
+      FractionBox[
+       RowBox[{"35", " ", 
+        SuperscriptBox["x2", "4"]}], "8"], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 
+       Rational[-5, 2], 0, 
+       Rational[35, 8]}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["5", "2"]}], "+", 
+       FractionBox[
+        RowBox[{"35", " ", 
+         SuperscriptBox["x2", "2"]}], "4"], "-", 
+       FractionBox[
+        RowBox[{"315", " ", 
+         SuperscriptBox["x2", "4"]}], "16"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[-5, 2], 0, 
+        Rational[35, 4], 0, 
+        Rational[-315, 16]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       FractionBox["35", "8"], "-", 
+       FractionBox[
+        RowBox[{"315", " ", 
+         SuperscriptBox["x2", "2"]}], "16"], "+", 
+       FractionBox[
+        RowBox[{"3465", " ", 
+         SuperscriptBox["x2", "4"]}], "64"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[35, 8], 0, 
+        Rational[-315, 16], 0, 
+        Rational[3465, 64]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 
+      Rational[-5, 2], 0, 
+      Rational[35, 8]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[-5, 2], 0, 
+      Rational[35, 4], 0, 
+      Rational[-315, 16]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[35, 8], 0, 
+      Rational[-315, 16], 0, 
+      Rational[3465, 64]}, 0, 5, 1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.521570716386525*^9}, 
+   3.521570760179496*^9, {3.521570826975544*^9, 3.521570872681266*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "-", 
+      FractionBox[
+       RowBox[{"5", " ", 
+        SuperscriptBox["x2", "2"]}], "2"], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "3"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 3, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 
+       Rational[-5, 2]}, 0, 3, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["5", "2"]}], "+", 
+       FractionBox[
+        RowBox[{"35", " ", 
+         SuperscriptBox["x2", "2"]}], "4"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "3"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 3, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[-5, 2], 0, 
+        Rational[35, 4]}, 0, 3, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "3"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 3, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 
+      Rational[-5, 2]}, 0, 3, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[-5, 2], 0, 
+      Rational[35, 4]}, 0, 3, 1]}, 0, 3, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.521570716386525*^9}, 
+   3.521570760179496*^9, {3.521570826975544*^9, 3.5215708603935966`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "-", 
+      FractionBox[
+       RowBox[{"3", " ", 
+        SuperscriptBox["x2", "2"]}], "2"], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "3"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 3, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 
+       Rational[-3, 2]}, 0, 3, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["3", "2"]}], "+", 
+       FractionBox[
+        RowBox[{"15", " ", 
+         SuperscriptBox["x2", "2"]}], "4"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "3"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 3, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[-3, 2], 0, 
+        Rational[15, 4]}, 0, 3, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "3"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 3, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 
+      Rational[-3, 2]}, 0, 3, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[-3, 2], 0, 
+      Rational[15, 4]}, 0, 3, 1]}, 0, 3, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.521570716386525*^9}, 
+   3.521570760179496*^9, {3.521570826975544*^9, 3.5215708418669567`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "-", 
+      RowBox[{"150", " ", 
+       SuperscriptBox["x2", "2"]}], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "3"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 3, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, -150}, 0, 3, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", "150"}], "+", 
+       RowBox[{"37500", " ", 
+        SuperscriptBox["x2", "2"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "3"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 3, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {-150, 0, 37500}, 0, 3, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "3"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 3, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, -150}, 0, 3, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {-150, 0, 37500}, 0, 3, 1]}, 0, 3, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.521570716386525*^9}, 
+   3.521570760179496*^9, 3.521570826975544*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "-", 
+      RowBox[{"150", " ", 
+       SuperscriptBox["x2", "2"]}], "+", 
+      RowBox[{"18750", " ", 
+       SuperscriptBox["x2", "4"]}], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, -150, 0, 18750}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", "150"}], "+", 
+       RowBox[{"37500", " ", 
+        SuperscriptBox["x2", "2"]}], "-", 
+       RowBox[{"6562500", " ", 
+        SuperscriptBox["x2", "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {-150, 0, 37500, 0, -6562500}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{"18750", "-", 
+       RowBox[{"6562500", " ", 
+        SuperscriptBox["x2", "2"]}], "+", 
+       RowBox[{"1476562500", " ", 
+        SuperscriptBox["x2", "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {18750, 0, -6562500, 0, 1476562500}, 0, 
+       5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, -150, 0, 18750}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {-150, 0, 37500, 0, -6562500}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {18750, 0, -6562500, 0, 1476562500}, 0, 5, 
+     1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.521570716386525*^9}, 
+   3.521570760179496*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "-", 
+      RowBox[{"50", " ", 
+       SuperscriptBox["x2", "2"]}], "+", 
+      RowBox[{"3750", " ", 
+       SuperscriptBox["x2", "4"]}], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, -50, 0, 3750}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", "50"}], "+", 
+       RowBox[{"7500", " ", 
+        SuperscriptBox["x2", "2"]}], "-", 
+       RowBox[{"937500", " ", 
+        SuperscriptBox["x2", "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {-50, 0, 7500, 0, -937500}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{"3750", "-", 
+       RowBox[{"937500", " ", 
+        SuperscriptBox["x2", "2"]}], "+", 
+       RowBox[{"164062500", " ", 
+        SuperscriptBox["x2", "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {3750, 0, -937500, 0, 164062500}, 0, 5, 
+       1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, -50, 0, 3750}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {-50, 0, 7500, 0, -937500}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {3750, 0, -937500, 0, 164062500}, 0, 5, 
+     1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.521570716386525*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "+", 
+      RowBox[{"50", " ", 
+       SuperscriptBox["x2", "2"]}], "-", 
+      RowBox[{"1250", " ", 
+       SuperscriptBox["x2", "4"]}], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 50, 0, -1250}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{"50", "-", 
+       RowBox[{"2500", " ", 
+        SuperscriptBox["x2", "2"]}], "+", 
+       RowBox[{"187500", " ", 
+        SuperscriptBox["x2", "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {50, 0, -2500, 0, 187500}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", "1250"}], "+", 
+       RowBox[{"187500", " ", 
+        SuperscriptBox["x2", "2"]}], "-", 
+       RowBox[{"23437500", " ", 
+        SuperscriptBox["x2", "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {-1250, 0, 187500, 0, -23437500}, 0, 5, 
+       1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 50, 0, -1250}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {50, 0, -2500, 0, 187500}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {-1250, 0, 187500, 0, -23437500}, 0, 5, 
+     1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.5215706896180334`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "+", 
+      RowBox[{"5", " ", 
+       SuperscriptBox["x2", "2"]}], "-", 
+      FractionBox[
+       RowBox[{"25", " ", 
+        SuperscriptBox["x2", "4"]}], "2"], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 5, 0, 
+       Rational[-25, 2]}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{"5", "-", 
+       RowBox[{"25", " ", 
+        SuperscriptBox["x2", "2"]}], "+", 
+       FractionBox[
+        RowBox[{"375", " ", 
+         SuperscriptBox["x2", "4"]}], "2"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {5, 0, -25, 0, 
+        Rational[375, 2]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["25", "2"]}], "+", 
+       FractionBox[
+        RowBox[{"375", " ", 
+         SuperscriptBox["x2", "2"]}], "2"], "-", 
+       FractionBox[
+        RowBox[{"9375", " ", 
+         SuperscriptBox["x2", "4"]}], "4"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[-25, 2], 0, 
+        Rational[375, 2], 0, 
+        Rational[-9375, 4]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 5, 0, 
+      Rational[-25, 2]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {5, 0, -25, 0, 
+      Rational[375, 2]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[-25, 2], 0, 
+      Rational[375, 2], 0, 
+      Rational[-9375, 4]}, 0, 5, 1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.5215706647522783`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1.`", "+", 
+      RowBox[{"5.`", " ", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"x2", "+", "0.`"}], ")"}], "2"]}], "-", 
+      RowBox[{"12.5`", " ", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"x2", "+", "0.`"}], ")"}], "4"]}], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", 
+         RowBox[{"x2", "+", "0.`"}], "]"}], "5"],
+       SeriesData[$CellContext`x2, 0., {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0., {1., 0., 5., 0., -12.5}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{"5.`", "-", 
+       RowBox[{"25.`", " ", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"x2", "+", "0.`"}], ")"}], "2"]}], "+", 
+       RowBox[{"187.5`", " ", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"x2", "+", "0.`"}], ")"}], "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", 
+          RowBox[{"x2", "+", "0.`"}], "]"}], "5"],
+        SeriesData[$CellContext`x2, 0., {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0., {5., 0., -25., 0., 187.5}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"x1", "+", "0.`"}], ")"}], "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", "12.5`"}], "+", 
+       RowBox[{"187.5`", " ", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"x2", "+", "0.`"}], ")"}], "2"]}], "-", 
+       RowBox[{"2343.75`", " ", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"x2", "+", "0.`"}], ")"}], "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", 
+          RowBox[{"x2", "+", "0.`"}], "]"}], "5"],
+        SeriesData[$CellContext`x2, 0., {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0., {-12.5, 0., 187.5, 0., -2343.75}, 0, 5, 
+       1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"x1", "+", "0.`"}], ")"}], "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", 
+      RowBox[{"x1", "+", "0.`"}], "]"}], "5"],
+    SeriesData[$CellContext`x1, 0., {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0., {
+    SeriesData[$CellContext`x2, 0., {1., 0., 5., 0., -12.5}, 0, 5, 1], 0., 
+    SeriesData[$CellContext`x2, 0., {5., 0., -25., 0., 187.5}, 0, 5, 1], 0., 
+    SeriesData[$CellContext`x2, 0., {-12.5, 0., 187.5, 0., -2343.75}, 0, 5, 
+     1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.5215706583430624`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "+", 
+      RowBox[{"5", " ", 
+       SuperscriptBox["x2", "2"]}], "-", 
+      FractionBox[
+       RowBox[{"25", " ", 
+        SuperscriptBox["x2", "4"]}], "2"], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 5, 0, 
+       Rational[-25, 2]}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{"5", "-", 
+       RowBox[{"25", " ", 
+        SuperscriptBox["x2", "2"]}], "+", 
+       FractionBox[
+        RowBox[{"375", " ", 
+         SuperscriptBox["x2", "4"]}], "2"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {5, 0, -25, 0, 
+        Rational[375, 2]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["25", "2"]}], "+", 
+       FractionBox[
+        RowBox[{"375", " ", 
+         SuperscriptBox["x2", "2"]}], "2"], "-", 
+       FractionBox[
+        RowBox[{"9375", " ", 
+         SuperscriptBox["x2", "4"]}], "4"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[-25, 2], 0, 
+        Rational[375, 2], 0, 
+        Rational[-9375, 4]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 5, 0, 
+      Rational[-25, 2]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {5, 0, -25, 0, 
+      Rational[375, 2]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[-25, 2], 0, 
+      Rational[375, 2], 0, 
+      Rational[-9375, 4]}, 0, 5, 1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.5215706527149696`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "+", 
+      FractionBox[
+       SuperscriptBox["x2", "2"], "2"], "-", 
+      FractionBox[
+       SuperscriptBox["x2", "4"], "8"], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 
+       Rational[1, 2], 0, 
+       Rational[-1, 8]}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       FractionBox["1", "2"], "-", 
+       FractionBox[
+        SuperscriptBox["x2", "2"], "4"], "+", 
+       FractionBox[
+        RowBox[{"3", " ", 
+         SuperscriptBox["x2", "4"]}], "16"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[1, 2], 0, 
+        Rational[-1, 4], 0, 
+        Rational[3, 16]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", "8"]}], "+", 
+       FractionBox[
+        RowBox[{"3", " ", 
+         SuperscriptBox["x2", "2"]}], "16"], "-", 
+       FractionBox[
+        RowBox[{"15", " ", 
+         SuperscriptBox["x2", "4"]}], "64"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[-1, 8], 0, 
+        Rational[3, 16], 0, 
+        Rational[-15, 64]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 
+      Rational[1, 2], 0, 
+      Rational[-1, 8]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[1, 2], 0, 
+      Rational[-1, 4], 0, 
+      Rational[3, 16]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[-1, 8], 0, 
+      Rational[3, 16], 0, 
+      Rational[-15, 64]}, 0, 5, 1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, {3.521570629441504*^9, 3.521570645414472*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "+", 
+      RowBox[{"0.505`", " ", 
+       SuperscriptBox["x2", "2"]}], "-", 
+      RowBox[{"0.1275125`", " ", 
+       SuperscriptBox["x2", "4"]}], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 0.505, 0, -0.1275125}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{"0.505`", "-", 
+       RowBox[{"0.255025`", " ", 
+        SuperscriptBox["x2", "2"]}], "+", 
+       RowBox[{"0.1931814375`", " ", 
+        SuperscriptBox["x2", "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {0.505, 0, -0.255025, 0, 0.1931814375}, 
+       0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", "0.1275125`"}], "+", 
+       RowBox[{"0.19318143750000003`", " ", 
+        SuperscriptBox["x2", "2"]}], "-", 
+       RowBox[{"0.24389156484375002`", " ", 
+        SuperscriptBox["x2", "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 
+       0, {-0.1275125, 0, 0.19318143750000003`, 0, -0.24389156484375002`}, 0, 
+       5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 0.505, 0, -0.1275125}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {0.505, 0, -0.255025, 0, 0.1931814375}, 0, 
+     5, 1], 0, 
+    SeriesData[$CellContext`x2, 
+     0, {-0.1275125, 0, 0.19318143750000003`, 0, -0.24389156484375002`}, 0, 5,
+      1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, {3.5215705707771487`*^9, 
+   3.521570590575618*^9}, 3.521570629441504*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "+", 
+      RowBox[{"50", " ", 
+       SuperscriptBox["x2", "2"]}], "-", 
+      RowBox[{"1250", " ", 
+       SuperscriptBox["x2", "4"]}], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 50, 0, -1250}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{"50", "-", 
+       RowBox[{"2500", " ", 
+        SuperscriptBox["x2", "2"]}], "+", 
+       RowBox[{"187500", " ", 
+        SuperscriptBox["x2", "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {50, 0, -2500, 0, 187500}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", "1250"}], "+", 
+       RowBox[{"187500", " ", 
+        SuperscriptBox["x2", "2"]}], "-", 
+       RowBox[{"23437500", " ", 
+        SuperscriptBox["x2", "4"]}], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {-1250, 0, 187500, 0, -23437500}, 0, 5, 
+       1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 50, 0, -1250}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {50, 0, -2500, 0, 187500}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {-1250, 0, 187500, 0, -23437500}, 0, 5, 
+     1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}, 3.5215705707771487`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "+", 
+      FractionBox[
+       SuperscriptBox["x2", "2"], "2"], "-", 
+      FractionBox[
+       SuperscriptBox["x2", "4"], "8"], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 
+       Rational[1, 2], 0, 
+       Rational[-1, 8]}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       FractionBox["1", "2"], "-", 
+       FractionBox[
+        SuperscriptBox["x2", "2"], "4"], "+", 
+       FractionBox[
+        RowBox[{"3", " ", 
+         SuperscriptBox["x2", "4"]}], "16"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[1, 2], 0, 
+        Rational[-1, 4], 0, 
+        Rational[3, 16]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", "8"]}], "+", 
+       FractionBox[
+        RowBox[{"3", " ", 
+         SuperscriptBox["x2", "2"]}], "16"], "-", 
+       FractionBox[
+        RowBox[{"15", " ", 
+         SuperscriptBox["x2", "4"]}], "64"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[-1, 8], 0, 
+        Rational[3, 16], 0, 
+        Rational[-15, 64]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 
+      Rational[1, 2], 0, 
+      Rational[-1, 8]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[1, 2], 0, 
+      Rational[-1, 4], 0, 
+      Rational[3, 16]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[-1, 8], 0, 
+      Rational[3, 16], 0, 
+      Rational[-15, 64]}, 0, 5, 1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215705117022033`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "+", 
+      FractionBox[
+       SuperscriptBox["x2", "2"], "2"], "-", 
+      FractionBox[
+       SuperscriptBox["x2", "4"], "8"], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 
+       Rational[1, 2], 0, 
+       Rational[-1, 8]}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       FractionBox["1", "2"], "-", 
+       FractionBox[
+        SuperscriptBox["x2", "2"], "4"], "+", 
+       FractionBox[
+        RowBox[{"3", " ", 
+         SuperscriptBox["x2", "4"]}], "16"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[1, 2], 0, 
+        Rational[-1, 4], 0, 
+        Rational[3, 16]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", "8"]}], "+", 
+       FractionBox[
+        RowBox[{"3", " ", 
+         SuperscriptBox["x2", "2"]}], "16"], "-", 
+       FractionBox[
+        RowBox[{"15", " ", 
+         SuperscriptBox["x2", "4"]}], "64"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[-1, 8], 0, 
+        Rational[3, 16], 0, 
+        Rational[-15, 64]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 
+      Rational[1, 2], 0, 
+      Rational[-1, 8]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[1, 2], 0, 
+      Rational[-1, 4], 0, 
+      Rational[3, 16]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[-1, 8], 0, 
+      Rational[3, 16], 0, 
+      Rational[-15, 64]}, 0, 5, 1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, {
+   3.5215704768821344`*^9, 3.5215704966105022`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "+", 
+      FractionBox[
+       SuperscriptBox["x2", "2"], "2"], "-", 
+      FractionBox[
+       SuperscriptBox["x2", "4"], "8"], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 
+       Rational[1, 2], 0, 
+       Rational[-1, 8]}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       FractionBox["1", "2"], "-", 
+       FractionBox[
+        SuperscriptBox["x2", "2"], "4"], "+", 
+       FractionBox[
+        RowBox[{"3", " ", 
+         SuperscriptBox["x2", "4"]}], "16"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[1, 2], 0, 
+        Rational[-1, 4], 0, 
+        Rational[3, 16]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", "8"]}], "+", 
+       FractionBox[
+        RowBox[{"3", " ", 
+         SuperscriptBox["x2", "2"]}], "16"], "-", 
+       FractionBox[
+        RowBox[{"15", " ", 
+         SuperscriptBox["x2", "4"]}], "64"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[-1, 8], 0, 
+        Rational[3, 16], 0, 
+        Rational[-15, 64]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 
+      Rational[1, 2], 0, 
+      Rational[-1, 8]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[1, 2], 0, 
+      Rational[-1, 4], 0, 
+      Rational[3, 16]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[-1, 8], 0, 
+      Rational[3, 16], 0, 
+      Rational[-15, 64]}, 0, 5, 1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.521570191862296*^9, 3.521570208906805*^9}, {
+   3.521570270755739*^9, 3.521570287449744*^9}, 3.521570340996741*^9, 
+   3.5215704768821344`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"f", "=", 
+  InterpretationBox[
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{"1", "+", 
+       FractionBox[
+        SuperscriptBox["x2", "2"], "2"], "-", 
+       FractionBox[
+        SuperscriptBox["x2", "4"], "8"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {1, 0, 
+        Rational[1, 2], 0, 
+        Rational[-1, 8]}, 0, 5, 1],
+      Editable->False], ")"}], "+", 
+    RowBox[{
+     RowBox[{"(", 
+      InterpretationBox[
+       RowBox[{
+        FractionBox["1", "2"], "-", 
+        FractionBox[
+         SuperscriptBox["x2", "2"], "4"], "+", 
+        FractionBox[
+         RowBox[{"3", " ", 
+          SuperscriptBox["x2", "4"]}], "16"], "+", 
+        InterpretationBox[
+         SuperscriptBox[
+          RowBox[{"O", "[", "x2", "]"}], "5"],
+         SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+         Editable->False]}],
+       SeriesData[$CellContext`x2, 0, {
+         Rational[1, 2], 0, 
+         Rational[-1, 4], 0, 
+         Rational[3, 16]}, 0, 5, 1],
+       Editable->False], ")"}], " ", 
+     SuperscriptBox["x1", "2"]}], "+", 
+    RowBox[{
+     RowBox[{"(", 
+      InterpretationBox[
+       RowBox[{
+        RowBox[{"-", 
+         FractionBox["1", "8"]}], "+", 
+        FractionBox[
+         RowBox[{"3", " ", 
+          SuperscriptBox["x2", "2"]}], "16"], "-", 
+        FractionBox[
+         RowBox[{"15", " ", 
+          SuperscriptBox["x2", "4"]}], "64"], "+", 
+        InterpretationBox[
+         SuperscriptBox[
+          RowBox[{"O", "[", "x2", "]"}], "5"],
+         SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+         Editable->False]}],
+       SeriesData[$CellContext`x2, 0, {
+         Rational[-1, 8], 0, 
+         Rational[3, 16], 0, 
+         Rational[-15, 64]}, 0, 5, 1],
+       Editable->False], ")"}], " ", 
+     SuperscriptBox["x1", "4"]}], "+", 
+    InterpretationBox[
+     SuperscriptBox[
+      RowBox[{"O", "[", "x1", "]"}], "5"],
+     SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+     Editable->False]}],
+   SeriesData[$CellContext`x1, 0, {
+     SeriesData[$CellContext`x2, 0, {1, 0, 
+       Rational[1, 2], 0, 
+       Rational[-1, 8]}, 0, 5, 1], 0, 
+     SeriesData[$CellContext`x2, 0, {
+       Rational[1, 2], 0, 
+       Rational[-1, 4], 0, 
+       Rational[3, 16]}, 0, 5, 1], 0, 
+     SeriesData[$CellContext`x2, 0, {
+       Rational[-1, 8], 0, 
+       Rational[3, 16], 0, 
+       Rational[-15, 64]}, 0, 5, 1]}, 0, 5, 1],
+   Editable->False]}]], "Input",
+ CellChangeTimes->{{3.5215703553774195`*^9, 3.521570382786832*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   RowBox[{"(", 
+    InterpretationBox[
+     RowBox[{"1", "+", 
+      FractionBox[
+       SuperscriptBox["x2", "2"], "2"], "-", 
+      FractionBox[
+       SuperscriptBox["x2", "4"], "8"], "+", 
+      InterpretationBox[
+       SuperscriptBox[
+        RowBox[{"O", "[", "x2", "]"}], "5"],
+       SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+       Editable->False]}],
+     SeriesData[$CellContext`x2, 0, {1, 0, 
+       Rational[1, 2], 0, 
+       Rational[-1, 8]}, 0, 5, 1],
+     Editable->False], ")"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       FractionBox["1", "2"], "-", 
+       FractionBox[
+        SuperscriptBox["x2", "2"], "4"], "+", 
+       FractionBox[
+        RowBox[{"3", " ", 
+         SuperscriptBox["x2", "4"]}], "16"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[1, 2], 0, 
+        Rational[-1, 4], 0, 
+        Rational[3, 16]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     InterpretationBox[
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", "8"]}], "+", 
+       FractionBox[
+        RowBox[{"3", " ", 
+         SuperscriptBox["x2", "2"]}], "16"], "-", 
+       FractionBox[
+        RowBox[{"15", " ", 
+         SuperscriptBox["x2", "4"]}], "64"], "+", 
+       InterpretationBox[
+        SuperscriptBox[
+         RowBox[{"O", "[", "x2", "]"}], "5"],
+        SeriesData[$CellContext`x2, 0, {}, 0, 5, 1],
+        Editable->False]}],
+      SeriesData[$CellContext`x2, 0, {
+        Rational[-1, 8], 0, 
+        Rational[3, 16], 0, 
+        Rational[-15, 64]}, 0, 5, 1],
+      Editable->False], ")"}], " ", 
+    SuperscriptBox["x1", "4"]}], "+", 
+   InterpretationBox[
+    SuperscriptBox[
+     RowBox[{"O", "[", "x1", "]"}], "5"],
+    SeriesData[$CellContext`x1, 0, {}, 0, 5, 1],
+    Editable->False]}],
+  SeriesData[$CellContext`x1, 0, {
+    SeriesData[$CellContext`x2, 0, {1, 0, 
+      Rational[1, 2], 0, 
+      Rational[-1, 8]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[1, 2], 0, 
+      Rational[-1, 4], 0, 
+      Rational[3, 16]}, 0, 5, 1], 0, 
+    SeriesData[$CellContext`x2, 0, {
+      Rational[-1, 8], 0, 
+      Rational[3, 16], 0, 
+      Rational[-15, 64]}, 0, 5, 1]}, 0, 5, 1],
+  Editable->False]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.5215703686064415`*^9, 3.5215703820758095`*^9}}]
+}, Open  ]]
+},
+WindowSize->{616, 537},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 100, 1, 31, "Input"],
+Cell[CellGroupData[{
+Cell[670, 25, 832, 19, 31, "Input"],
+Cell[1505, 46, 3044, 90, 100, "Output"],
+Cell[4552, 138, 1900, 54, 54, "Output"],
+Cell[6455, 194, 1900, 54, 54, "Output"],
+Cell[8358, 250, 1688, 45, 33, "Output"],
+Cell[10049, 297, 2531, 68, 77, "Output"],
+Cell[12583, 367, 2481, 67, 55, "Output"],
+Cell[15067, 436, 2480, 67, 55, "Output"],
+Cell[17550, 505, 2759, 80, 100, "Output"],
+Cell[20312, 587, 3116, 87, 96, "Output"],
+Cell[23431, 676, 2759, 80, 100, "Output"],
+Cell[26193, 758, 2857, 86, 100, "Output"],
+Cell[29053, 846, 2644, 71, 77, "Output"],
+Cell[31700, 919, 2404, 66, 55, "Output"],
+Cell[34107, 987, 2759, 85, 100, "Output"],
+Cell[36869, 1074, 2759, 85, 100, "Output"],
+Cell[39631, 1161, 2733, 85, 100, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42401, 1251, 2686, 82, 100, "Input"],
+Cell[45090, 1335, 2637, 83, 100, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

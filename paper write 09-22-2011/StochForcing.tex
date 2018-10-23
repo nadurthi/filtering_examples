@@ -1,0 +1,266 @@
+\documentclass[10pt, conference]{IEEEtran}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb,bm,cite}
+\usepackage{graphicx,color,subfigure,wrapfig,times}
+\include{symbols}
+
+
+%\newcommand{\re}{\mathbb R}
+%\newcommand{\Ex}[1]{\mathbf{E}[#1]}
+%
+%\newcommand{\eq}[1]{Eq.~(\ref{#1})}
+%\newcommand{\Fig}[1]{Fig.~\ref{#1}}
+%
+%\newcommand{\x}{\mathbf{x}}
+%\newcommand{\cb}{\mathbf{c}}
+%\newcommand{\ub}{\mathbf{u}}
+%\newcommand{\ab}{\mathbf{a}}
+%\newcommand{\bb}{\mathbf{b}}
+%\newcommand{\z}{\mathbf{z}}
+%\newcommand{\p}{\mathbf{p}}
+%\newcommand{\w}{\mathbf{w}}
+%\newcommand{\pe}{\hat{\mathbf{p}}}
+%\newcommand{\f}{\mathbf{f}}
+%\newcommand{\xib}{\boldsymbol{\xi}}
+%\newcommand{\Omegab}{\boldsymbol{\Omega}}
+%\newcommand{\omegab}{\boldsymbol{\omega}}
+
+
+%************************************************************************
+\begin{document}
+\title{\LARGE \bf Uncertainty Evolution In Stochastic Linear Dynamic Models Using Polynomial Chaos}
+\author{\begin{tabular}{cccc}
+ Umamaheswara Konda  &  Puneet Singla &  Tarunraj Singh & Peter Scott\\
+Graduate Student & Assistant Professor & Professor & Associate Professor\\ venkatar@buffalo.edu
+&psingla@buffalo.edu & tsingh@buffalo.edu & peter@buffalo.edu\vspace{0.01in}\end{tabular}\\
+%\textsl{Department of Mechanical \& Aerospace Engineering}\\
+\textsl{University at Buffalo, State University of New York,
+Amherst, NY 14260-4400}}
+
+
+
+
+\maketitle                        %%%% To set Title and Author names.
+
+\begin{abstract}
+We present a new approach to describe the evolution of uncertainty in linear dynamic models with parametric and initial condition uncertainties, and driven by additive white Gaussian stochastic forcing. This is based on the polynomial chaos (PC) series expansion of second order random processes, which has been used in several domains to solve stochastic systems with parametric and initial condition uncertainties. The PC solution is found to be an accurate approximation to ground truth, established by Monte Carlo simulation, while offering an efficient computational approach for large systems with a relatively small number of uncertainties. However, when the dynamic system includes an additive stochastic forcing term varying with time, the computational cost of using the PC expansions for the stochastic forcing terms is expensive and increases exponentially with the increase in the number of time steps, due to the increase in the stochastic dimensionality. In this work, an alternative approach is proposed for uncertainty evolution in linear uncertain models driven by white noise. The uncertainty in the model states due to additive white Gaussian noise can be described by the mean and covariance of the states. This is combined with the PC based approach to propagate the uncertainty due to Gaussian stochastic forcing and model parameter uncertainties which can be non-Gaussian.
+%\keywords{Polynomial chaos \and uncertainty evolution \and stochastic dynamic models \and non-Gaussian distributions \and stochastic forcing}
+\end{abstract}
+
+\section{Introduction}
+The mathematic models used to represent physical processes are often reflection of many assumptions and simplifications to permit determination of a tractable model. The solution $\x$ of these models is therefore uncertain and is described by a time-dependent probability density function (\textit{pdf}) $p(t,\x)$. The uncertainty inherent in these models is either due to a lack of complete description of the system, i.e., model truncation or due to the uncertainty in model parameters and input to the system. Together these factors cause overall accuracy to degrade as the simulation evolves. Such models are characterized by uncertain model parameters and stochastic forcing terms. The uncertainty in the solution of the models could also arise due to the uncertainty in initial and boundary conditions driving the models. The knowledge of the evolution of these uncertainties through the model is important to accurately quantify the uncertainty in the solution of the model at any future time. A simplistic approach to account for all uncertainties is to evaluate all possibilities using the model and have some mechanism for averaging the outputs appropriately. Unfortunately for many classes of complex models the computational cost of this approach makes it unfeasible.
+
+Uncertainty propagation in various kinds of dynamical systems and physical processes has been studied extensively in various fields of engineering, finance, physical and environmental sciences \cite{adelman:86,xie:94,xia:01,rao:05, stott:02}. While most of these methods work very well and even provide exact description for the uncertainty evolution problem for linear system subject to initial condition and temporal stochastic disturbance generally modeled as white noise process, the main challenge lies in characterizing the uncertainty in system state due to \textit{both parametric and temporal stochastic uncertainties} simultaneously.  Conventionally, uncertain parameters are included in system state vector to characterize the effect of their uncertainty which results in a nonlinear dynamical system even though the original system dynamics was linear. Furthermore, several approximate techniques are used to study to the uncertainty evolution problem through resulting nonlinear dynamical system.  The most popular being Monte Carlo (MC) methods\cite{doucet}, Gaussian closure\cite{GaussClosure}, Equivalent Linearization\cite{linear}, and Stochastic Averaging\cite{lefeb1,lefeb2}. Most of the methods except Monte Carlo methods are similar in several respects, and incorporate linear approximations to nonlinear system response, or involve propagating only a few moments (often, just the mean and the covariance) of the distribution. These work well if the amount of uncertainty is small and there is adequate local linearity. Another class of methods, often used with models involving nonlinearities, are the various sampling strategies\cite{Helton:06}. The uncertainty distributions are taken into account by appropriately sampling values from known or approximated prior distributions and the model is run repeatedly for those values to obtain a distribution of the outputs. Monte Carlo or sampling based methods require extensive computational resources and effort, and become increasingly infeasible for high-dimensional dynamic systems\cite{DaumCurse}.
+
+Over the last decade, Generalized Polynomial Chaos (gPC) has emerged as a powerful tool to propagate the uncertainty of time invariant input variables through an otherwise deterministic set of equations, to predict a distribution of outputs. Polynomial chaos is a term originated by Norbert Wiener in $1938$ \cite{wiener}, to describe the members of the span of Hermite polynomial functionals of a Gaussian process. According to the Cameron-Martin Theorem\cite{cameron:47}, the Fourier-Hermite polynomial chaos expansion converges, in the $L^2$ sense, to any arbitrary process with finite variance (which applies to most physical processes). This approach is combined with the finite element method to model uncertainty in \cite{ghanem:91}. This has been generalized in \cite{xiu:02} to efficiently use the orthogonal polynomials from the Askey-scheme to model various probability distributions. This approach has been applied in modeling parametric uncertainties in multibody dynamical systems\cite{sandu:06}, structural mechanics \cite{ghanem:99}, and computational fluid dynamics \cite{najm:09,knio:06}. This approach has even been used in nonlinear system analysis for assessing stability and controller design \cite{hover:06}.
+
+While polynomial chaos presents an efficient alternative to Monte Carlo simulation in many cases, it becomes computationally expensive as the number of random parameters increases \cite{augustin:08}. When the dynamic system includes an additive stochastic forcing term (generally known as process noise) varying with time, using polynomial chaos series expansion for the stochastic forcing term is computationally expensive. For stochastic processes which are correlated in time, a smaller set of terms in the expansion is enough to model the random processes to keep the computation feasible \cite{ghanem:91,sandu:06}. For a model driven by white noise, which is uncorrelated in time, an infinite number of terms is required to model the white noise process. The computational costs increase exponentially with the increase in the number of time steps, due to the increase in the stochastic dimensionality even for linear dynamical system.
+
+In short, although many algorithms exist in literature to accurately characterize the uncertainty evolution problem for linear and nonlinear dynamical systems, none of them is able to incorporate \textit{both parametric and temporal stochastic uncertainties} simultaneously even for linear dynamical systems. In this work, we focus on developing analytical means to accurately characterize the state pdf of a linear system subject to initial condition errors, white noise excitation and non-Gaussian parametric errors. The bayesian framework is used to characterize the effect of uncertainty due to stochastic forcing while gPC framework is used to characterize the effect of parametric errors.
+
+The paper is organized as follows: first the main idea is summarized proposing the marriage of bayesian framework with gPC framework to characterize the uncertainty due to both parametric and white noise excitation followed by the details on the proposed approach. The proposed method is illustrated by a numerical example and the results are numerically compared with the Monte Carlo solutions. Finally, the conclusions and directions for future work are presented.
+
+\section{Main Idea}
+In conventional \textit{deterministic} systems, the system state assumes a fixed value at any given instant of time. However, in stochastic dynamics it is a \textit{random variable} and its time evolution is given by the following stochastic differential equation:
+\begin{equation} \label{stochmodel}
+\dot{\x} = \A(\Th)\x + \B(\Th)\u+ \G\et,\ \x(t_0) =\me_0 \\
+\end{equation}
+where,  $\x(t) \in \re^n$ represents the stochastic system state vector at time $t$, $\Th$ represents uncertain time-invariant system parameters, $\et$ represents stochastic forcing terms usually modeled with a Gaussian white-noise process with the correlation function $\mathbf{Q}\delta(t_1-t_2)$, and $\me_0$ represents the nominal initial state. The Gaussian white noise process $\et$ is assumed to be uncorrelated in time and with other uncertainties in model parameters and initial conditions. The uncertain parameters $\Th$ are assumed to be function of a random vector $\xib$ having a known \textit{pdf} $p(\xib)$, with common support $\Omega$.  The uncertainty associated with the state vector $\x$ is usually characterized by time parameterized state \textit{pdf} $p(t,\x,\Th)$. In essence, the study of stochastic systems reduces to finding the nature of time-evolution of the initial system-state pdf $p(t_0,\x_0,\Th)$ generally assumed to be Gaussian with mean $\me_0$ and covariance $\cov_0$. A key idea of this work is to \textit{replace the time evolution of state in the dynamic model by the time evolution of state probability distribution} as shown in Fig.~\ref{fig:pdf_prop}. By computing full probability density functions, we can monitor the evolution of uncertainty, represent multi-modal distributions, incorporate complex prior models, and exploit Bayesian belief propagation, both through space and time.
+
+\begin{figure*}[ht]
+\subfigure[State and pdf transition]{\includegraphics[width=2.8in]{./Figures/pdf_tran.pdf}\label{fig:pdf_prop}}
+\subfigure[Proposed Idea]{\includegraphics[width=3in]{./Figures/uncertprop.pdf}\label{fig:main_idea}}
+\caption{Uncertainty Evolution Through a Linear Dynamical System.}\label{fig:uncert_evolution}
+\end{figure*}
+
+It is a well-known fact that the system state \textit{pdf} of the linear model described by \eq{stochmodel} is Gaussian for a given value of the uncertain model parameter. The evolution of uncertainty in stochastic model of \eq{stochmodel} for given value of parameter $\Th_i$ can be described using the state mean and covariance propagation when the forcing term is additive white Gaussian noise (AWGN) and initial conditions are Gaussian in nature. Notice that if one appends the state vector $\x$ with unknown parameter vector $\Th$, the resulting state-space model will be nonlinear in nature and propagation of just mean and covariance would not be suffice. On other hand, since the stochastic forcing terms are independent random variables at different times, using polynomial chaos series expansion to model the stochastic forcing terms is computationally intractable.
+
+The main idea of this work is to \textit{marry gPC with linear moment propagation equations}, to properly integrate the joint likelihood function and thence determine the posterior distribution of the full system.  For a fixed value of parameter $\Theta=\Theta_i$, an ensemble of moment propagation equations provides an output distribution owing to stochastic forcing.  This approach can be further combined with polynomial chaos to describe the evolution of a combination of uncertainties in model parameters, initial conditions and forcing terms. Varying the $\Theta$ inputs according to gPC approach, and integrate via quadrature, one can obtain the joint likelihood function as shown in Fig.~\ref{fig:main_idea}.
+
+\section{Uncertainty Evolution}
+
+For a particular realization of the uncertain model parameters, the system states of the linear model described by \eq{stochmodel} are Gaussian due to AWGN and Gaussian initial condition. In other words, the conditional state \textit{pdf} $p(\x|\Th)$ is normal distribution with mean $\me$ and covariance $\cov$, i.e. $p(\x|\Th)=\mathcal{N}(\x;\me,\cov)$. The two conditional moments of the model states $\x$ are exactly given by the following equations: \begin{align}\label{meanG}
+\dot{\me} &=\A(\Th)\me + \B\u\\
+\dot{\cov} &= \A(\Th)\cov+\cov\A^T(\Th)+\G(\Th) \Q \G^T(\Th) \label{covG}
+\end{align}
+These conditional moment propagation equations are exact and depend only on the initial conditions (of mean and covariance terms) and the model parameters. These expressions can be used to obtain different realizations for $\me$ and $\cov$, by Monte Carlo sampling of the random vector $\Th$. Each realization of $\me$ and $\cov$ represents the mean and covariance of the conditional distribution of $\x$ corresponding to a particular realization of the uncertain model parameters. As noted earlier, for a given realization of the model parameters, the distribution of $\x$ is Gaussian due to the additive white Gaussian forcing term. The complete distribution of the original state vector $\x$ at any time $t$, can thus be estimated from its realizations obtained by independent Monte Carlo sampling of the various Gaussian distributions resulting from the various samples of $\Th(\xib)$ as:
+\begin{align}
+p(t,\x) &= \int\limits_{\om}{p(t,\x|\Th(\xib))p(\xib)d\xib}\\
+&=\int\limits_{\om}\mathcal{N}(t,\x;\me(t,\Th),\cov(t,\Th))p(\xib)d\xib \label{meth2pi}
+\end{align}
+It is well-known that the Monte Carlo sampling require extensive computational resources and effort, and become increasingly infeasible for high-dimensional dynamic systems\cite{DaumCurse}. To avoid Monte Carlo sampling, we make use of gPC to obtain the distribution for $\me$ and covariance $\cov$ in terms of random variable $\xib$.
+\subsection{Polynomial Chaos}
+The basic goal of the approach is to approximate the stochastic system states in terms of a finite-dimensional series expansion in the infinite-dimensional stochastic space. The completeness of the space allows for the accurate representation of any random variable, with a given probability density function (\textit{pdf}), by a suitable projection on the space spanned by a carefully selected basis. The basis can be chosen for a given \textit{pdf}, to represent the random variable with the fewest number of terms. For example, the Hermite polynomial basis can be used to represent random variables with Gaussian distribution using only two terms. For dynamical systems described by parameterized models, the unknown coefficients are determined by minimizing an appropriate norm of the residual.
+
+Combining the state mean and covariance terms into a new state vector $\z \in \re^N$ where $N = n(n+3)/2$, the propagation equations represent an augmented model describing the evolution of $\z$ without a stochastic forcing term:
+\begin{equation}
+\dot{\z}= \L(\Th)\z+\M(\Th)\w \label{sysdet2}
+\end{equation}
+where, $\L(\Th) \in \re^{N\times N}$ is the augmented system matrix, $\M(\Th) \in \re^{N\times q}$ is the augmented input matrix corresponding to the transformed input vector $\w \in \re^q$ for the augmented model.
+
+According to gPC method, each of the uncertain states and parameters can be expanded approximately by the finite dimensional Wiener-Askey polynomial chaos \cite{xiu:02} as:
+\begin{eqnarray}
+z_{i}(t,\xib) &= \sum\limits_{r=0}^P {z_i}_r(t)\phi_r(\xib) =& \z_i^T(t)\Phi(\xib) \label{states}\\
+\Th_j(\xib) &= \sum\limits_{r=0}^P {\th_j}_r\phi_r(\xib) =& \th_j^T\Phi(\xib) \label{params}\\
+L_{ij}(\Th) &= \sum\limits_{r=0}^P {L_{ij}}_r\phi_r(\xib) =& \v{l}_{ij}^T\Phi(\xib) \label{paramsA}\\
+M_{ij}(\Th) &= \sum\limits_{r=0}^P {M_{ij}}_r\phi_r(\xib) =& \v{m}_{ij}^T\Phi(\xib) \label{paramsB}
+\end{eqnarray}
+where $\vo{\Phi}(.)\in \re ^P$ is a vector of polynomials basis functions orthogonal to the pdf $p(\xib)$ which can be constructed using the \textit{Gram-Schmidt Orthogonalization Process}. The coefficients $L_{{ij}_r}$ and $M_{{ij}_r}$ are obtained by making use of following \textit{normal equations}:
+\begin{eqnarray}
+{L_{ij}}_r &=& \frac{\left\langle L_{ij}(\Th(\xib)),\phi_r(\xib)\right\rangle}{\left\langle \phi_r(\xib),\phi_r(\xib)\right\rangle} \notag\\
+{M_{ij}}_r &=& \frac{\left\langle M_{ij}(\Th(\xib)),\phi_r(\xib)\right\rangle}{\left\langle \phi_r(\xib),\phi_r(\xib)\right\rangle} \notag
+\end{eqnarray}
+where $\left\langle u(\xib),v(\xib)\right\rangle = \int_{\om}{u(\xib)v(\xib)p(\xib)d\xib}$ represents the inner product induced by \textit{pdf} $p(\xib)$. For linear and polynomial functions, the integrals in the inner products can be easily evaluated analytically \cite{ghanem:91} to obtain the coefficients. For non-polynomial nonlinearities, numerical quadrature methods are used to evaluate the multi-dimensional integrals. %For instance, Gauss-Hermite quadrature formulae may be used to evaluate the integrals for a Hermite polynomial basis. These quadrature methods fall under the broader sampling-based Non-Intrusive Spectral Projection (NISP) methods discussed in \cite{reagan:03}. 
+
+The total number of terms in the polynomial chaos (PC) expansion is $P+1$ and is determined by the chosen highest order ($l$) of the polynomials $\left\{\phi_r\right\}$ and the dimension ($m$) of the vector of uncertain parameters $\Th$:
+\begin{eqnarray}
+P+1 &=& \frac{(l+m)!}{l!m!} \label{numterms}
+\end{eqnarray}
+Substitution of the approximate expressions for $\x$ and $\Th$ in \eq{states} and \eq{params}, in \eq{sysdet2} leads to:
+%{\small
+\begin{align}\notag
+e_i(\xib) = &\dot{\z}_i^T\Phi(\xib)-\sum_{j=1}^N{\v{l}_{ij}^T\Phi(\xib)\z_j^T(t)\Phi(\xib)}\\
+&-\sum_{j=1}^q{\v{m}_{ij}^T\Phi(\xib)w_j(t)},\ \mbox{for $i = 1,\ldots,N$} \label{erreq}
+\end{align}
+where, $\mathbf{e}(\xib)$ represents the error due to the truncated polynomial chaos expansions of $\z$. The $N(P+1)$ time-varying unknown coefficients ${z_i}_r$ can be obtained using the Galerkin projection method. Projecting the error onto the space of orthogonal basis functions $\left\{\phi_r\right\}$ and minimizing it leads to $N(P+1)$ deterministic equations:
+\begin{align}
+&\left\langle e_i(\xib),\phi_r(\xib)\right\rangle = 0 \mbox{ for $i = 1,\ldots,N$ and $r = 0,\ldots,P$} \notag\\
+&\dot{z}_{ir}\left\langle \phi_r^2 \right\rangle - \left\langle \sum_{j=1}^N{\v{l}_{ij}^T\Phi\z_j^T(t)\Phi},\phi_r \right\rangle\notag\\
+&- \left\langle \sum_{j=1}^q{\v{m}_{ij}^T\Phi w_j(t)},\phi_r \right\rangle = 0
+\end{align}
+These integrals can be evaluated analytically for linear systems to get a set of deterministic ODEs with the coefficients of the polynomial chaos series expansions as the states:
+\begin{eqnarray}
+\dot{\v{c}} &=& \A_p\v{c}+\B_p\w \label{sysdet}
+\end{eqnarray}
+where, $\v{c}(t) = [\z_1^T(t),\z_2^T(t),\ldots,\z_N^T(t)]^T \in \re^{N(P+1)}$ is a vector of the PC coefficients, $\A_p \in \re^{N(P+1)\times N(P+1)}$ is the deterministic system matrix and $\B_p \in \re^{N(P+1)\times q}$ is the deterministic input matrix corresponding to the input vector $\w(t)$.
+
+Let $T_r \in \re^{(P+1)\times (P+1)}$, for $r=0,\cdots,P,$ denote the inner product matrix of the orthogonal basis functions defined as follows:
+\begin{align}\label{ipmat}
+T_{r_{ij}} = \frac{1}{\langle \phi_r^2 \rangle}\langle \phi_i(\vo{\xi}),\phi_j(\vo{\xi}),\phi_r(\vo{\xi}) \rangle, \quad i,j=0,\cdots,P
+\end{align}
+Then, $\A_p$ can be written as an $N\times N$ matrix of block matrices, each block ${A_p}_{ij}$ being a $(P+1)\times(P+1)$ matrix the $r^th$ row of which is given by:
+\begin{align}
+{A_p}_{ij}(r,:) = \v{l}_{ij}^T T_r, \quad i,j=1,\cdots,N
+\end{align}
+The input matrix $\B_p$ can be written as $N \times q$ matrix of block matrices, each block ${B_p}_{ij}$ being a $(P+1)\times 1$ vector given by:
+\begin{align}
+{B_p}_{ij}= \v{m}_{ij} \quad i=1,\cdots,N, \quad j=1,\cdots,q
+\end{align}
+
+\eq{sysdet} can then be solved to obtain the time-history of the time-varying coefficients ${z_i}_r$. The solution of the stochastic system in \eq{sysdet2} can thus be obtained in terms of polynomial functionals of random variables $\xi_i$:
+\begin{align}
+z_i(t,\Th) &= \sum_{r=0}^P {z_i}_r(t)\phi_r(\xib) \mbox{, $i=1,\ldots,n$} \notag
+\end{align}
+This expression can be used to estimate the moments of conditional mean $\me(t,\Th)$ and covariance matrix $\cov(t,\Th)$.
+\begin{align}
+\Ex{z_i(t,\Th)} &= \sum_{r=0}^P {z_i}_r(t)\Ex{\phi_r(\xib)} \mbox{, $i=1,\ldots,n$} \notag
+\end{align}
+Now, the \textit{pdf} of state vector $\x$ can be computed as follows:
+\begin{align}
+p(\x)&=\int\limits_{\om}{p(t,\x|\Th(\xib))p(\xib)d\xib} \notag\\
+&=\int\limits_{\om}\mathcal{N}(t,\x;\z(\xib))p(\xib)d\xib \notag\\
+&=\int\limits_{\om}\mathcal{N}\left(t,\x;\sum_{r=0}^P {z_i}_r(t)\phi_r(\xib)\right)p(\xib)d\xib
+\end{align}
+%The other coefficients similarly represent the combinations of various moments of the solution:
+%\begin{eqnarray}
+%{x_i}_r(k) &=& \frac{\left\langle x_i(k,\p),\phi_r(\xib) \right\rangle}{\left\langle \phi_r(\xib),\phi_r(\xib) \right\rangle} \notag\\
+%&=& \frac{\int_{\re^m}{x_i(k,\xib)\phi_r(\xib)g(\xib)d\xib}}{\int_{\re^m}{\phi_r^2(\xib)g(\xib)d\xib}}
+%\end{eqnarray}
+%The mean of the solution $x_i(k,\xib)$ can be evaluated analytically using the equation
+%\begin{equation}
+%\Ex{x_i(k,\p(\xib))} = \mu(k) = \int_{\Omegab}{x_i(k,\p(\xib))g(\xib)d\xib}
+%\end{equation}
+%and the n$^{th}$ central moment by the equation:
+%\begin{equation}
+%\Ex{(x_i(k,\p(\xib))-\mu(k))^n} = \int_{\Omegab}({x_i(k,\p(\xib))-\mu(k))^n g(\xib)d\xib}
+%\end{equation}
+%For orthogonal basis functions $\left\{\phi_r\right\}$ with $\phi_0 = 1$, it can be verified from these equations that
+%\begin{eqnarray}
+%\mbox{Mean, }\mu(k) &=& \Ex{x_i(k,\p(\xib))} =  {x_i}_0(k) \notag\\
+%\mbox{Variance, }\sigma^2(k) &=& \Ex{(x_i(k,\p(\xib))-\mu(k))^2} = \sum_{r=1}^P {{x_i}_r^2(k) \left\langle \phi_r^2 \right\rangle}
+%\end{eqnarray}
+%The \textit{pdf} of the solution can also be estimated from the evaluated finite number of moments of the solution by maximizing the entropy of the solution\cite{antona:07}.
+
+\section{Example}
+
+The proposed method is illustrated on a simple mass-spring-damper system, shown in \Fig{fig:example}, with an uncertain spring stiffness coefficient $k$, and driven by a zero mean Gaussian stochastic forcing $u$. The system is described by \eq{smdeq}:% and the evolution of the states of the nominal system is shown in \Fig{fig:nomstates}.
+%
+%The proposed method is illustrated on a simple mass-spring-damper system with an uncertain spring stiffness coefficient $k$, and driven by a zero mean Gaussian stochastic forcing $u$. The system is described by \eq{smdeq}:% and the evolution of the states of the nominal system is shown in \Fig{fig:nomstates}.
+
+\begin{eqnarray}
+m\ddot{x}+c\dot{x}+kx &=& u \label{smdeq}
+\end{eqnarray}
+
+\begin{figure}[h!tp]
+\setlength{\unitlength}{8.0mm}
+\begin{center}
+\begin{picture}(11,5)(1.0,-1.5)
+\thicklines \put(8,0){\framebox(2,2){$m$}} %\put(0,0){\framebox(2,2){$m_1$}}
+\put(2,1.5){\line(1,0){1}} \put(3,1.5){\line(1,1){0.5}} \put(3.5,2.0){\line(1,-1){1}}
+\put(4.5,1.0){\line(1,1){1}} \put(5.5,2.0){\line(1,-1){1}} \put(6.5,1.0){\line(1,1){0.5}}
+\put(7,1.5){\line(1,0){1}} \put(5,1.9){\makebox(0,0)[t]{$k$}} \thinlines
+\put(2,0.5){\line(1,0){3}} \put(5,0.0){\line(0,1){1}} \put(6,0.0){\line(0,1){1}}
+\put(5.5,-0.2){\makebox(0,0)[t]{$c$}} \put(2,-0.5){\line(0,1){3}}
+\put(2,-0.2){\line(-1,-1){0.5}} \put(2,0.1){\line(-1,-1){0.5}}
+\put(2,0.4){\line(-1,-1){0.5}} \put(2,0.7){\line(-1,-1){0.5}}
+\put(2,1.0){\line(-1,-1){0.5}} \put(2,1.3){\line(-1,-1){0.5}}
+\put(2,1.6){\line(-1,-1){0.5}} \put(2,1.9){\line(-1,-1){0.5}}
+\put(2,2.2){\line(-1,-1){0.5}} \put(2,2.5){\line(-1,-1){0.5}}
+ \put(6,0.5){\line(1,0){2}}
+\put(4.9,0.0){\line(1,0){1.1}} \put(4.9,1.0){\line(1,0){1.1}}
+ \put(9,0){\line(0,-1){0.75}} \put(9,-0.5){\vector(1,0){1}}
+\put(9.5,-0.6){\makebox(0,0)[t]{\small$x$}} %\put(9,2){\line(0,1){0.75}}
+\put(9,2.8){\line(0,-1){0.75}}
+\put(9.0,2.5){\vector(1,0){1}} \put(9.5,2.6){\makebox(0,0)[b]{\small$u$}}
+\end{picture}
+\end{center}
+\caption{Mass-spring-damper system} \label{fig:example}
+\end{figure}
+
+%\begin{figure}[!t]
+%\begin{center}
+%\includegraphics[scale=0.5]{./Figures/smdnomstates.pdf}
+%\caption{Evolution of nominal states}\label{fig:nomstates}
+%\end{center}
+%\end{figure}
+
+\begin{figure*}[ht]
+\centering
+\subfigure[Evolution of mean]{\includegraphics[width=1.5in]{./Figures/smdevolmeans.pdf}\label{fig:smdmean}}
+\subfigure[Evolution of variance]{\includegraphics[width=1.5in]{./Figures/smdevolvars.pdf}\label{fig:smdvar}}
+\subfigure[Evolution of 3rd central moment] {\includegraphics[width=1.5in]{./Figures/smdevolcm3.pdf}\label{fig:smdcm3}}
+\subfigure[Evolution of 4th central moment]{\includegraphics[width=1.5in]{./Figures/smdevolcm4.pdf}\label{fig:smdcm4}}
+\caption{Evolution of moments of the conditional means}\label{fig:moments}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\subfigure[Evolution of mean]{\includegraphics[width=1.5in]{./Figures/smdevolstmeans.pdf}\label{fig:smdstmean}}
+\subfigure[Evolution of variance]{\includegraphics[width=1.5in]{./Figures/smdevolstvars.pdf}\label{fig:smdstvar}}
+\subfigure[Evolution of 3rd central moment] {\includegraphics[width=1.5in]{./Figures/smdevolstcm3.pdf}\label{fig:smdstcm3}}
+\subfigure[Evolution of 4th central moment]{\includegraphics[width=1.5in]{./Figures/smdevolstcm4.pdf}\label{fig:smdstcm4}}
+\caption{Evolution of moments of the actual states}\label{fig:stmoments}
+\end{figure*}
+
+The mass, $m = 1$, is released at $x_0 = 5$, with velocity $\dot{x}_0 = 0$. The system has a known damping constant $c = 0.1$. The spring stiffness $k$ is assumed to be uniformly distributed between $1.5$ and $2.5$, while the zero mean Gaussian stochastic forcing has a standard deviation of $2$. The true evolution of the uncertain states is obtained by Monte Carlo solution of the uncertain system \eq{smdeq}, with $10000$ sample runs of the model, independently sampling the uncertain parameter $k$ and the stochastic forcing. The evolution of these uncertainties in this linear dynamic model is evaluated using the proposed polynomial chaos (PC) approach and compared with the Monte Carlo solution.
+
+%\begin{figure}[h!tb]
+%\centering
+%\epsfig{file=smdevolmeans2.eps,width=0.7\linewidth,clip=}
+%\caption{Evolution of means of uncertain states \label{fig:evolmeans2}}
+%\end{figure}
+
+Following the proposed approach, the given model is replaced by an augmented model whose states represent the uncertainty of the original states due to stochastic forcing. The conditional distribution of the states given the model parameters, is Gaussian characterized by its mean and covariance. The conditional mean and covariance propagation equations represent the dynamics of this new augmented model, with the mean and covariance terms being the states. These states are then approximated by a PC series expansion of order $7$, accounting for the uncertainty in the model parameter $k$. Since $k$ is a uniformly distributed random parameter, Legendre polynomials are used as the basis functions in the PC approximation. The system is then transformed into a deterministic system of equations with the PC coefficients of the augmented states, as the new states. In effect, the solution of this system represents the uncertainty of the states characterizing the uncertainty due to stochastic forcing. \Fig{fig:moments} shows the evolution of the first four moments of the first two states (conditional means) of this augmented model. The mean, variance and the higher central moments of the actual states, the position and the velocity of the mass, are shown in \Fig{fig:stmoments}. It can be seen that the evaluated moments are consistent with that of the Monte Carlo solution of the system. Further, the computational time taken for the Monte Carlo solution is $400s$, while the same for the PC solution is less than $1s$. This illustrates the significant computational advantage of the proposed approach over the Monte Carlo solution, while providing comparable results. 
+
+\section{Conclusion}
+An efficient approach is proposed in this work for the accurate description of uncertainty evolution in linear dynamic models with parametric and initial condition uncertainties, and driven by AWGN. The uncertainty due to the AWGN stochastic forcing is propagated using the mean and covariance propagation equations and that due to uncertain model parameters using the polynomial chaos. While the mean and covariance propagation equations are exact only for white Gaussian stochastic forcing in linear dynamic models, the polynomial chaos approach can be used for any probability distribution of model parameters. The polynomial chaos approach involves fewer computations than the standard Monte Carlo solution approach which requires solving the dynamical model many times for many realizations of the uncertain parameters. When measurements are available, this information about the distribution of the solution can be used to make accurate predictions using filtering techniques. This suggests an extension of this approach to robust filtering problems with dynamical models having known parametric uncertainty distributions, a task currently under investigation.
+
+\section*{Acknowledgment}
+This work is supported under contract no. HM1582-08-1-0012 from ONR.
+
+%\bibliographystyle{./elsart-harv}
+\bibliographystyle{ieeetran}
+\bibliography{Fusion09,refs}
+
+
+\end{document}

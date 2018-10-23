@@ -1,0 +1,62 @@
+clear
+clc
+eop=[0 -1 0 0 0];
+tableau=[2 2 1 0 0
+         8 0 0 2 1
+         -1 0 0 0 0
+         eop
+         2 4 1 0 0
+         8 0 0 4 1
+         -3 0 0 0 0
+         eop
+         8 0 0 4 1
+         -1 0 0 0 0
+         eop
+         -6 0 1 0 0
+         -8 0 0 0 1
+         1 0 0 0 0
+         eop];
+%      eop=[0 -1 0 ];
+% tableau=[1 2 0
+%          -1 1 0
+%          -2 0 0
+%          eop
+%          1 1 1
+%          -1 0 0
+%          eop
+%          ];
+     
+%      totdtab
+% 
+% % HomStruct=[1 0 1 0 1 0;0 1 0 1 0 1];
+HomStruct=[1 1 1 1 1];
+LPDdegrees=[3;5;5;1];
+LPDstruct=[1 0 1 0 1
+           1 0 1 0 1
+           0 1 0 1 1
+           1 0 1 0 1
+           1 0 1 0 1
+           1 0 1 0 1
+           1 0 1 0 1
+           0 1 0 1 1
+           0 0 1 0 1
+           0 0 1 0 1
+           0 0 1 0 1
+           0 0 1 0 1
+           0 0 0 1 1
+           0 1 0 1 1];
+lpdtab
+% mhomtab
+%      disp('the sols are');disp(dehomog(xsoln,1e-8,HomStruct,[1]))
+     x=dehomog(xsoln,1e-8,HomStruct);
+     [r,c]=size(x);
+     for i=1:1:c
+         for j=1:1:(r-1)
+         if real(x(j,i))<0 || abs(imag(x(j,i)))>1e-05
+             x(1:end,i)=0;
+             break
+         end
+         end  
+     end
+     x
+ 2*(1.5811e+000)^2*(1.6000e-001)+8*(2.2361e+000)^2*(5.0000e-003)

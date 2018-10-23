@@ -1,0 +1,137 @@
+function [X,w]=uniform_sigma_pts(mu,P,N)
+n=length(P);
+%N is the order of sigma points
+%% calculate the sigma points for iid 
+n=length(mu);
+if N==4
+
+    if n==5
+r1=0.983192080250175;
+r2=0.6784669927988098;
+w1=0.04756242568370988;
+w2=0.016386741973840664;
+m=n;
+    end
+    if n==4
+r1=0.8944271909999159;
+r2=0.7071067811865476;
+w1=0.06944444444444445;
+w2=0.027777777777777776;
+m=n;
+    end
+        if n==3
+r1=0.7958224257542215;
+r2=0.7587869106393281;
+w1=0.110803324099723;
+w2=0.04189750692520776;
+   m=n;
+        end
+if n==2
+r1=0.6831300510639732;
+r2=0.8819171036881968;
+w1=0.2040816326530612;
+w2=0.04591836734693878;
+m=n;
+end
+    if n==6
+r1=0.7954844806711471;
+r2=0.7729958609899745;
+w1=0.018498622349495227;
+w2=0.0032417355491919046;
+m=4;
+
+% r1=0.8146836628687879;
+% r2=0.7587394644519632;
+% w1=0.06936400406648856;
+% w2=0.002619249237533397;
+% m=5;
+    end
+        if n==7
+r1=0.9830726897029773;
+r2=0.7467984594276957;
+w1=0.017844575631304052;
+w2=0.001116333245776404;
+m=5;
+
+% r1=0.8146836628687879;
+% r2=0.7587394644519632;
+% w1=0.06936400406648856;
+% w2=0.002619249237533397;
+% m=5;
+    end
+A=sqrtm(P);
+X=zeros(2*n+2^m*nchoosek(n,m),n);
+dr=general_conj_axis(n,m);
+for i=1:1:n          
+    X(i,:)=r1*A(:,i);
+    X(i+n,:)=-r1*A(:,i);
+end
+for i=1:1:length(dr)
+    sig=0;
+    for j=1:1:n
+        sig=sig+dr(i,j)*A(:,j);
+    end
+    X(2*n+i,:)=r2*sig;
+end
+w=[w1*ones(1,2*n),w2*ones(1,length(dr))]';
+end
+
+%% 6th moment
+if N==6
+    
+   if n==4
+       
+      r1=
+      r2=
+      r3=
+      w1=
+      w2=
+      w3=
+      m1=n;
+      m2=3;
+   end
+   
+   A=sqrtm(P);
+X=zeros(1+2*n+2^m1*nchoosek(n,m1)+2^m2*nchoosek(n,m2),n);
+% X(1,:)=zeros(1,n);
+
+for i=1:1:n          
+    X(i,:)=r1*A(:,i);
+    X(i+n,:)=-r1*A(:,i);
+end
+
+dr1=general_conj_axis(n,m1);
+for i=1:1:length(dr1)
+    sig=0;
+    for j=1:1:n
+        sig=sig+dr1(i,j)*A(:,j);
+    end
+    X(2*n+i,:)=r2*sig;
+end
+
+dr2=general_conj_axis(n,m2);
+for i=1:1:length(dr2)
+    sig=0;
+    for j=1:1:n
+        sig=sig+dr2(i,j)*A(:,j);
+    end
+    X(2*n+length(dr1)+i,:)=r3*sig;
+end
+w=[1-w1*(2*n)-w2*(length(dr1))-w3*(length(dr2)),w1*ones(1,2*n),w2*ones(1,length(dr1)),w3*ones(1,length(dr2))]';
+    
+end
+
+%% check if all points are within the boundary
+if max(max(abs(X)))>1
+    X=0;
+    return
+end
+
+for i=1:1:n
+    X(:,i)=X(:,i)+mu(i);
+end
+end
+
+
+
+

@@ -1,0 +1,158 @@
+function [X,w]=conjugate_dir_gausspts_till_6moment_scheme2(mu,P)
+%dimension n of the system
+global n
+
+n=length(mu);
+if n<7
+options=optimset('Display','off','MaxFunEvals',10000,'MaxIter',10000);
+[x,f]=fsolve(@moment_6th_ND_eqns,[2,3,4]',options);
+r1=x(1);
+r2=x(2);
+r3=x(3);
+w=[(7-(n-1))/r1^6;1/(2^n*r2^6);1/(2*r3^6)];
+w1=w(1);
+w2=w(2);
+w3=w(3);
+w0=1-2*n*w1-2^n*w2-2*n*(n-1)*w3;
+A=sqrtm(P);
+X=zeros(2*n+2^n+2*n*(n-1)+1,n);
+%*******generating the PD direction***********
+index=GenerateIndex(n,n*ones(1,n));
+[roww,coll]=size(index);
+dr=[];
+for i=1:1:roww
+if length(find(index(i,:)>2))==0
+    dr=vertcat(dr,index(i,:));
+end
+end
+%*********************************************
+for i=1:1:n+1
+    if i==1
+        X(i,:)=zeros(1,n);
+    else
+              
+    X(i,:)=r1*A(:,i-1);
+    X(i+n,:)=-r1*A(:,i-1);
+        
+    end
+end
+mo=-1*ones(1,n);
+for i=1:1:2^n
+    rr=mo.^dr(i,:);
+    sig=0;
+    for j=1:1:n
+        sig=sig+rr(j)*A(:,j);
+    end
+    X(2*n+1+i,:)=r2*sig;
+end
+
+%*******generating the Plane Diagonal direction***********
+
+index=GenerateIndex(n,n*ones(1,n));
+
+dr=[];
+for i=3:1:n
+index(find(index==i))=0;
+end
+
+[roww,coll]=size(index);
+for i=1:1:roww
+if length(find(index(i,:)==0))==n-2
+    dr=vertcat(dr,index(i,:));
+end
+end
+[rowwdr,coll]=size(dr);
+drr=dr(1,:);
+for i=1:1:rowwdr
+    [rdr,coll]=size(drr);
+    dd=0;
+    for j=1:1:rdr
+        dd(j)=sum(abs(drr(j,:)-dr(i,:)));
+    end
+    
+    if length(find(dd==0))==0
+        drr=[drr;dr(i,:)];
+    end
+end
+drr(find(drr==2))=-1;
+%*********************************************
+    for i=1:1:2*n*(n-1)
+    sig=0;
+    for j=1:1:n
+        sig=sig+drr(i,j)*A(:,j);
+    end
+  
+     X(2*n+1+2^n+i,:)=r3*sig;
+    end
+w0=1-2*n*w1-2^n*w2-2*n*(n-1)*w3;
+
+w=[w0,w1*ones(1,2*n),w2*ones(1,2^n),w3*ones(1,2*n*(n-1))]';
+for i=1:1:n
+    X(:,i)=X(:,i)+mu(i);
+end
+
+
+else
+    
+    options=optimset('Display','off','MaxFunEvals',10000,'MaxIter',10000);
+[x,f]=fsolve(@moment_6th_ND_eqns,[2,3,4]',options);
+r1=x(1);
+r2=x(2);
+r3=x(3);
+ w=[(14-n)/(2*r1^6);(n-5)/(2^n*(n-3)*r2^6);1/(4*(n-3)*r3^6)];
+w1=w(1);
+w2=w(2);
+w3=w(3);
+w0=1-2*n*w1-2^n*w2-4*n*(n-1)*(n-2)/3*w3;
+A=sqrtm(P);
+X=zeros(2*n+2^n+4*n*(n-1)*(n-2)/3+1,n);
+%*******generating the PD direction***********
+% index=GenerateIndex(n,n*ones(1,n));
+% [roww,coll]=size(index);
+% dr=[];
+% for i=1:1:roww
+% if length(find(index(i,:)>2))==0
+%     dr=vertcat(dr,index(i,:));
+% end
+% end
+dr=
+%*********************************************
+for i=1:1:n+1
+    if i==1
+        X(i,:)=zeros(1,n);
+    else
+              
+    X(i,:)=r1*A(:,i-1);
+    X(i+n,:)=-r1*A(:,i-1);
+        
+    end
+end
+mo=-1*ones(1,n);
+for i=1:1:2^n
+    rr=mo.^dr(i,:);
+    sig=0;
+    for j=1:1:n
+        sig=sig+rr(j)*A(:,j);
+    end
+    X(2*n+1+i,:)=r2*sig;
+end
+
+%*******generating the Plane Diagonal direction***********
+
+DD=third_conj_axis(n);
+%*********************************************
+    for i=1:1:4*n*(n-1)*(n-2)/3
+    sig=0;
+    for j=1:1:n
+        sig=sig+drr(i,j)*A(:,j);
+    end
+  
+     X(2*n+1+2^n+i,:)=r3*sig;
+    end
+w0=1-2*n*w1-2^n*w2-4*n*(n-1)*(n-2)/3*w3;
+
+w=[w0,w1*ones(1,2*n),w2*ones(1,2^n),w3*ones(1,4*n*(n-1)*(n-2)/3)]';
+for i=1:1:n
+    X(:,i)=X(:,i)+mu(i);
+end
+end

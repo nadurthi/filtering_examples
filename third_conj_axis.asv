@@ -1,0 +1,16 @@
+function D=third_conj_axis(n)
+dr=prod_conjugate_dir(3);
+C = nchoosek(1:n,3);
+[rc,cc]=size(C);
+[rdr,cdr]=size(dr);
+D=zeros(4/3*n*(n-1)*(n-2),n);
+for i=1:rc:rdr*rc
+    for j=1:1:rc
+   D(i+j,C(j,1))=dr(i,1);
+   D(i+,C(j,2))=dr(i,2);
+   D(i,C(j,3))=dr(i,3);
+    end
+end
+
+    
+

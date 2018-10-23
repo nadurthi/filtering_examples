@@ -1,0 +1,3 @@
+function parforsave_ukf(NNN,rr,f,ukf_eg_para_set,t,Pest_fin_ukf,Pest_fin_ckf,Pest_fin_cut4,Pest_fin_cut6,Pest_fin_cut8,Pest_fin_gh,est_fin_ukf,est_fin_ckf,est_fin_cut4,est_fin_cut6,est_fin_cut8,est_fin_gh,x_mc,x100_ukf,x100_ckf,x100_cut4,x100_cut6,x100_cut8,x100_gh,P100_ukf,P100_ckf,P100_cut4,P100_cut6,P100_cut8,P100_gh)
+save(strcat('ukf_set3_eg_run_nos_',num2str(NNN),'_paraset_no_',num2str(rr),num2str(f)),'ukf_eg_para_set','t','Pest_fin_ukf','Pest_fin_ckf','Pest_fin_cut4','Pest_fin_cut6','Pest_fin_cut8','Pest_fin_gh','est_fin_ukf','est_fin_ckf','est_fin_cut4','est_fin_cut6','est_fin_cut8','est_fin_gh','x_mc','x100_ukf','x100_ckf','x100_cut4','x100_cut6','x100_cut8','x100_gh','P100_ukf','P100_ckf','P100_cut4','P100_cut6','P100_cut8','P100_gh')
+end

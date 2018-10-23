@@ -1,0 +1,7 @@
+clear
+clc
+g=@(u)sin(u);
+a=1;
+x=-3;
+f1=quadgk(@(u)(x-u).^2.*g(u),a,x)
+f2=quadgk(@(u)mod_funx(u,x,a,2).*g(u),-100,100)

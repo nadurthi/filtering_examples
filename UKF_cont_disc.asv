@@ -1,0 +1,31 @@
+function [xu,Pu]=UKF_cont_disc(fn,hn,mu_ut,P_ut)
+    
+    [x,w]=UT_sigmapoints(mu_ut,P_ut,2);
+    [mu_ut_sf,P_ut_sf]=prop_mean_cov_points_cont(x,w,@crass_eg_dyn_cont,tt,dt,tt+dt);
+    P_ut_sf=P_ut_sf+Q;
+    
+    pp=find(abs(t-(tt+dt))<=1e-10);
+        if rem(pp,f)==0
+    
+        %obs forecast
+    [x,w]=UT_sigmapoints(mu_ut_sf,P_ut_sf,2);
+    [mu_ut_of,P_ut_of]=prop_mean_cov_points_discr(x,w,@crass_eg_meas_disc);
+    P_ut_of=P_ut_of+R;
+    %cross cov
+    [x,w]=UT_sigmapoints(mu_ut_sf,P_ut_sf,2);
+    Pcc=0;
+    for i=1:1:length(w)
+        Pcc=Pcc+w(i)*(x(i,:)'-mu_ut_sf)*(crass_eg_meas_disc(x(i,:)')-mu_ut_of)';
+    end
+    %kalman gain
+    K=Pcc*inv(P_ut_of);
+    %update
+    pp=find(abs(t-(tt+dt))<=1e-10);
+    mu_ut=mu_ut_sf+K*(ym(pp,:)'-mu_ut_of);
+    P_ut=P_ut_sf-K*P_ut_of*K';
+    
+    else
+        mu_ut=mu_ut_sf;
+        P_ut=P_ut_sf;
+    end
+end

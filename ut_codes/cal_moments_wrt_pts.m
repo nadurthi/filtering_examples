@@ -1,0 +1,43 @@
+function m=cal_moments_wrt_pts(x,w,NN)
+%Calculate all the moments till order NN
+[mmm,mm]=size(x);
+%Dimension of the system
+n=mm;
+m=[];
+for N=2:2:NN
+
+    combos = GenerateIndex(n,(N+1)*ones(1,n));
+combos(find(combos==(N+1)))=0;
+
+y=[];
+for i=1:1:length(combos)
+    if sum(combos(i,:))==N
+     y=vertcat(y,combos(i,:));
+%      x=vertcat(x,wrev(combos(i,:)));
+    end
+end
+y=sortrows(y,-1);
+[yy,yyy]=size(y);
+
+c=[];
+
+for i=1:1:yy
+    p=w;
+    for j=1:1:n
+        p=p.*x(:,j).^y(i,j);
+    end
+    p=sum(p);
+    c=vertcat(c,p);
+end
+% if N==2
+%     m=vertcat(m,[y,c,ones(length(c),1)]);
+% else
+% g=permute_moments(P,N);
+
+m=vertcat(m,[y,c]);
+% end
+end
+
+        
+
+    

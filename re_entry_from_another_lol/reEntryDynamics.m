@@ -1,0 +1,16 @@
+function xk1=reEntryDynamics(xk)
+global dt
+p=0.00237*exp(-xk(3)/10000);
+g1=atan2(-xk(6),sqrt(xk(4)^2+xk(5)^2));
+g2=atan2(xk(4),xk(5));
+g=9.8;
+B=2440;
+
+xk1=[xk(1)+dt*xk(4);...
+    xk(2)+dt*xk(5);...
+    xk(3)+dt*xk(6);...
+    xk(4)-dt*((p*(xk(4)^2+xk(5)^2+xk(6)^2))/(2*B))*g*cos(g1)*sin(g2);...
+    xk(5)-dt*((p*(xk(4)^2+xk(5)^2+xk(6)^2))/(2*B))*g*cos(g1)*cos(g2);...
+    xk(6)+dt*((p*(xk(4)^2+xk(5)^2+xk(6)^2))/(2*B))*g*sin(g1)-g];
+
+end

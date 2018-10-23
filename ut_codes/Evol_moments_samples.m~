@@ -1,0 +1,36 @@
+function M=Evol_moments_samples(X,w,N,type)
+% given X(time,states,samples) and constant w-weight calculate the moments
+% with respect to time for all states
+% N is the the order of required moment
+nt=size(X,1);%no. of time steps
+nx=size(X,2);%no. of states
+ns=size(X,3);%no. of samples
+if size(w,1)==1
+    w=w';
+end
+mu=zeros(nt,nx);
+for i=1:1:nt
+    for j=1:1:nx
+        D(1:1:ns,1)=X(i,j,:);
+mu(i,j)=sum(w.*D);
+    end
+end
+if N==1
+    M=mu;
+    return;
+end
+if strcmp(type,'central')==1
+    i
+    for i=1:1:nt
+        for j=1:1:nx
+            X(i,j,:)=X(i,j,:)-mu(i,j);
+        end
+    end
+end
+M=zeros(nt,nx);
+   for i=1:1:nt
+       for j=1:1:nx
+            D(1:1:ns,1)=X(i,j,:);
+           M(i,j)=sum(w.*(D.^N));
+       end
+   end

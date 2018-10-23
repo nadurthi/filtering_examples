@@ -1,0 +1,9 @@
+function [t,xk1]=ode45_disc(F,t0,dt,tF,xk)
+xk1=xk';
+for i=t0:dt:tF-dt
+    xk=F(xk);
+    xk1=vertcat(xk1,xk')
+end
+xk1=xk;
+t=t0:dt:tF;
+end
